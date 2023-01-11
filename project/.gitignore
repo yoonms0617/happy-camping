@@ -1,7 +1,14 @@
-/build/
+## Eclipse
 .metadata/
-.idea/
-*.iml
 .classpath
 .project
-/out
+.settings/
+/bin/
+/tmp/
+
+## IntelliJ
+*.iml
+*.iws
+.idea/
+/build/
+/out/
