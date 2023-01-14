@@ -1,26 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/happy/fragments/head.jsp" %>
 <!-- category css -->
-<link rel="stylesheet" href="/assets/project/main/css/category.css">
+<link rel="stylesheet" href="./assets/project/main/css/category.css">
 <!-- slider css -->
-<link rel="stylesheet" href="/assets/slick/css/slick.css">
-<link rel="stylesheet" href="/assets/slick/css/slick-theme.css">
+<link rel="stylesheet" href="./assets/slick/css/slick.css">
+<link rel="stylesheet" href="./assets/slick/css/slick-theme.css">
 <body>
 <%@include file="/happy/fragments/header.jsp"%>
 <div class="container">
     <!-- main slider -->
     <div class="main-slider">
         <div>
-            <img src="/assets/images/main/main-01.jpg">
+            <img src="./assets/images/main/main-01.jpg">
         </div>
         <div>
-            <img src="/assets/images/main/main-02.jpg">
+            <img src="./assets/images/main/main-02.jpg">
         </div>
         <div>
-            <img src="/assets/images/main/main-03.jpg">
+            <img src="./assets/images/main/main-03.jpg">
         </div>
         <div>
-            <img src="/assets/images/main/main-04.jpg">
+            <img src="./assets/images/main/main-04.jpg">
         </div>
     </div>
 
@@ -174,7 +174,7 @@
 <%@include file="/happy/fragments/footer.jsp" %>
 <%@include file="/happy/fragments/common-script.jsp" %>
 <!-- slider js -->
-<script rel="script" src="/assets/slick/js/slick.min.js"></script>
-<script rel="script" src="/assets/project/main/js/slider.js"></script>
+<script rel="script" src="./assets/slick/js/slick.min.js"></script>
+<script rel="script" src="./assets/project/main/js/slider.js"></script>
 </body>
 </html>
