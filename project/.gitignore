@@ -12,3 +12,6 @@
 .idea/
 /build/
 /out/
+
+## Common
+/src/main/webapp/META-INF/context.xml
