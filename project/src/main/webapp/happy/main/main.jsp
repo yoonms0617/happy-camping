@@ -87,9 +87,19 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text text-truncate">${hotSaleItem.name}</p>
-                                <p class="card-text">
-                                    <fmt:formatNumber value="${hotSaleItem.price}" pattern="#,###"/>원
-                                </p>
+                                <div class="d-flex position-relative">
+                                    <p class="align-items-center text-danger display-6 flex-shrink-0 mb-0 me-2">
+                                            ${hotSaleItem.sale}%
+                                    </p>
+                                    <div>
+                                        <p class="text-decoration-line-through mb-0">
+                                            <fmt:formatNumber value="${hotSaleItem.price}" pattern="#,###"/>원 <br/>
+                                        </p>
+                                        <fmt:formatNumber value="${hotSaleItem.price * ((100 - hotSaleItem.sale) * 0.01)}" pattern="#,###"/>원
+                                    </div>
+                                </div>
+                                <span>
+                                </span>
                             </div>
                         </div>
                     </div>
