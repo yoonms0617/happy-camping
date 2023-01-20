@@ -74,6 +74,7 @@
             </div>
         </div>
     </div>
+    <div style=" height:5px"></div>
     <div class="m-auto">
         <div class="mt-5">
             <span class="display-6">초특가 상품</span>
@@ -107,6 +108,7 @@
             </div>
         </div>
     </div>
+    <div style=" height:5px"></div>
     <div class="m-auto mb-3">
         <div class="mt-5">
             <span class="display-6">따끈따끈한 신규상품을 만나보세요!</span>
@@ -123,6 +125,87 @@
                                 <p class="card-text">
                                     <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+     <div style=" height:30px"></div>
+     <div class="container">
+        <div class=" row" >
+        <div class="col-lg-6 col-md-6 col-12">
+         <div class="m-auto mb-3">
+        <div class="mt-6">
+            <span class="display-6">재입고 상품</span>
+            <!-- 재입고 상품 슬라이더 -->
+            <div class="main-slider">
+                <c:forEach var="newItem" items="${newItems}">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-img-top" width="100%" height="100%">
+                                <img class="m-auto" src="${newItem.image}" width="312"/>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-truncate">${newItem.name}</p>
+                                <p class="card-text">
+                                    <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ////////////////// --> 
+    <div class="col-lg-6 col-md-6 col-12">
+         <div class="m-auto mb-3">
+        <div class="mt-6">
+            <span class="display-6">추천 상품</span>
+            <!-- 추천상품 슬라이더 -->
+            <div class="main-slider">
+                <c:forEach var="newItem" items="${newItems}">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-img-top" width="100%" height="100%">
+                                <img class="m-auto" src="${newItem.image}" width="312"/>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-truncate">${newItem.name}</p>
+                                <p class="card-text">
+                                    <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+    </div>
+      </div>
+    </div>
+    <!-- 분할 창 끝 -->
+    <div style=" height:5px"></div>
+    <div class="m-auto mb-3">
+        <div class="mt-5">
+            <span class="display-6">베스트 캠핑장</span>
+            <!-- 신규상품 슬라이더 -->
+            <div class="new-item-slider">
+                <c:forEach var="campItems" items="${campItems}">
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-img-top" width="100%" height="100%">
+                                <img class="m-auto" src="${campItems.image}" width="312" height="300"/>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-truncate">${campItems.name}</p>
+                                <%-- <p class="card-text">
+                                    <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
+                                </p> --%>
                             </div>
                         </div>
                     </div>
