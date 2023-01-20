@@ -27,7 +27,7 @@ public class MainModel {
     public String mainPage(HttpServletRequest request, HttpServletResponse response) {
         List<ItemVO> hotSaleItems = itemDAO.hotSaleItem();
         List<ItemVO> newItems = itemDAO.newItemList();
-        List<CampVO> campItems =campDAO.campItems();
+        List<CampVO> campItems = campDAO.campItems();
         request.setAttribute("hotSaleItems", hotSaleItems);
         request.setAttribute("newItems", newItems);
         request.setAttribute("campItems", campItems);
