@@ -52,7 +52,6 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI().substring(request.getContextPath().length() + 1);
-        System.out.println("requestURI = " + requestURI);
         try {
             for (String model : models) {
                 Class<?> clazz = Class.forName(model);
@@ -65,7 +64,6 @@ public class DispatcherServlet extends HttpServlet {
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
                     if (requestMapping.value().equals(requestURI)) {
                         String view = (String) method.invoke(object, request, response);
-                        System.out.println("view = " + view);
                         if (view.startsWith("redirect:")) {
                             response.sendRedirect(view.substring(view.indexOf(":")) + 1);
                         } else {
