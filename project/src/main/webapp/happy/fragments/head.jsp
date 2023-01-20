@@ -11,4 +11,13 @@
 
     <!-- common css -->
     <link rel="stylesheet" href="/assets/boostrap/css/bootstrap.min.css">
+
+    <!-- Web font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        body {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
 </head>
