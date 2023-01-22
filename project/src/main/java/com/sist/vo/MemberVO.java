@@ -1,95 +1,32 @@
 package com.sist.vo;
-// MemberVO
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class MemberVO {
-	private String mid,password,name,email,tel,birth,postcode,home_addr,detail_addr,sex,role;
 
-	public String getMid() {
-		return mid;
-	}
+    private String mid;
 
-	public void setMid(String mid) {
-		this.mid = mid;
-	}
+    private String password;
 
-	public String getPassword() {
-		return password;
-	}
+    private String name;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String email;
 
-	public String getName() {
-		return name;
-	}
+    private String tel;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String birth;
 
-	public String getEmail() {
-		return email;
-	}
+    private String postcode;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    private String homeAddr;
 
-	public String getTel() {
-		return tel;
-	}
+    private String detailAddr;
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+    private String sex;
 
-	public String getBirth() {
-		return birth;
-	}
+    private String role;
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-
-	public String getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
-	public String getHome_addr() {
-		return home_addr;
-	}
-
-	public void setHome_addr(String home_addr) {
-		this.home_addr = home_addr;
-	}
-
-	public String getDetail_addr() {
-		return detail_addr;
-	}
-
-	public void setDetail_addr(String detail_addr) {
-		this.detail_addr = detail_addr;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	
 }

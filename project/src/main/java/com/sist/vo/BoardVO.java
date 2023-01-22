@@ -5,17 +5,18 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-
 @Getter
 @Setter
-public class ItemQAReplyVO {
+public class BoardVO {
 
-    private int qarno;
+    private int bno;
 
     private String writer;
 
+    private String title;
+
     private String content;
 
-    private Date regdate;
+    private Date regDate;
 
 }
