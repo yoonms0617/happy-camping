@@ -2,6 +2,7 @@ package com.sist.controller;
 
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -59,13 +60,16 @@ public class DispatcherServlet extends HttpServlet {
                 if (!clazz.isAnnotationPresent(Controller.class)) {
                     continue;
                 }
-                Method[] methods = clazz.getMethods();
+                Method[] methods = clazz.getDeclaredMethods();
                 for (Method method : methods) {
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
                     if (requestMapping.value().equals(requestURI)) {
                         String view = (String) method.invoke(object, request, response);
+                        if (view == null) {
+                            return;
+                        }
                         if (view.startsWith("redirect:")) {
-                            response.sendRedirect(view.substring(view.indexOf(":")) + 1);
+                            response.sendRedirect(view.substring(view.indexOf(":") + 1));
                         } else {
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher(view);
                             requestDispatcher.forward(request, response);
