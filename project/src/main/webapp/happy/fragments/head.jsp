@@ -11,6 +11,7 @@
 
     <!-- common css -->
     <link rel="stylesheet" href="/assets/boostrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/project/main/css/category.css">
 
     <!-- Web font -->
     <style>
