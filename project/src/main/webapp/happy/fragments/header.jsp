@@ -4,10 +4,10 @@
         <div class="container d-flex flex-wrap justify-content-end">
             <ul class="nav">
                 <li class="nav-item me-3">
-                    <a href="#" class="text-decoration-none">로그인</a>
+                    <a href="/member/login.do" class="text-decoration-none">로그인</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="text-decoration-none">회원가입</a>
+                    <a href="/member/signup.do" class="text-decoration-none">회원가입</a>
                 </li>
             </ul>
         </div>
@@ -16,7 +16,7 @@
         <div class="mt-4 mb-4">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 text-start">
-                    <a class="text-dark h1 text-decoration-none" href="#">행복한 캠핑</a>
+                    <a class="text-dark h1 text-decoration-none" href="/main.do">행복한 캠핑</a>
                 </div>
             </div>
         </div>

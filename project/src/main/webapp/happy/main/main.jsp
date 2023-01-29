@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="/happy/fragments/head.jsp" %>
-<!-- category css -->
-<link rel="stylesheet" href="/assets/project/main/css/category.css">
 <!-- slider css -->
 <link rel="stylesheet" href="/assets/slick/css/slick.css">
 <link rel="stylesheet" href="/assets/slick/css/slick-theme.css">

@@ -34,7 +34,7 @@ public class ItemDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ItemVO itemVO = new ItemVO();
-                itemVO.setIcno(rs.getInt(1));
+                itemVO.setIno(rs.getInt(1));
                 String mainImage = getMainImage(rs.getString(2));
                 itemVO.setImage(mainImage);
                 itemVO.setName(rs.getString(3));
@@ -63,7 +63,7 @@ public class ItemDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ItemVO itemVO = new ItemVO();
-                itemVO.setIcno(rs.getInt(1));
+                itemVO.setIno(rs.getInt(1));
                 String mainImage = getMainImage(rs.getString(2));
                 itemVO.setImage(mainImage);
                 itemVO.setName(rs.getString(3));
