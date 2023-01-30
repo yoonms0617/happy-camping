@@ -152,7 +152,7 @@
             <a class="p-3 cat-item" href="#">자유게시판</a>
             <a class="p-3 cat-item" href="#">신규상품</a>
             <a class="p-3 cat-item" href="#">할인상품</a>
-            <a class="p-3 cat-item" href="#">캠핑장목록</a>
+            <a class="p-3 cat-item" href="/camp_list.do">캠핑장목록</a>
         </nav>
     </div>
     <hr>
