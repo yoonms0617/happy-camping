@@ -1,16 +1,15 @@
 package com.sist.dao;
 
-import com.sist.util.DBConn;
-import com.sist.util.Pagination;
-import com.sist.vo.CampVO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sist.util.DBConn;
+import com.sist.util.Pagination;
+import com.sist.vo.CampVO;
 
 public class CampDAO {
 
@@ -30,7 +29,7 @@ public class CampDAO {
                 + "from (select /*+index_asc(HC_CAMP_2 hc_camp_cno_pk)*/cno, image, name, tel , address "
                 + "from HC_CAMP_2))"
                 + " where num between 1 and 15";
-        List<CampVO> list = new ArrayList<CampVO>();
+        List<CampVO> list = new ArrayList<>();
         try {
             conn = dbconn.createConnection();
             ps = conn.prepareStatement(sql);
