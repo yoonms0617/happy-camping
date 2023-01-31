@@ -3,4 +3,5 @@
     <bean class="com.sist.model.MainModel"/>
     <bean class="com.sist.model.MemberModel"/>
     <bean class="com.sist.model.CampModel"/>
+    <bean class="com.sist.model.ItemModel"/>
 </beans>

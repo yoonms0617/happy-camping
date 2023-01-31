@@ -1,11 +1,11 @@
 package com.sist.dao;
 
-import com.sist.util.DBConn;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.sist.util.DBConn;
 
 public class MemberDAO {
 

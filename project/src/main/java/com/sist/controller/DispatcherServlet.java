@@ -1,10 +1,10 @@
 package com.sist.controller;
 
-import com.sist.controller.annotation.Controller;
-import com.sist.controller.annotation.RequestMapping;
-
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import java.io.File;
-import java.io.IOException;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import com.sist.controller.annotation.Controller;
+import com.sist.controller.annotation.RequestMapping;
 
 @WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
