@@ -71,11 +71,11 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link <c:if test="${page.first || page.curPage - 10 <= 0}">disabled</c:if>"
+                        <a class="page-link <c:if test="${page.first || page.curPage - 10 <= 0}">disabled invisible</c:if>"
                            href="camp_list.do?page=${page.curPage - 10}">&laquo;</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link <c:if test="${page.first}">disabled</c:if>"
+                        <a class="page-link <c:if test="${page.first}">disabled invisible</c:if>"
                            href="camp_list.do?page=${page.curPage - 1}">◀︎</a>
                     </li>
                     <c:forEach var="pageNumber" begin="${page.startPage}" end="${page.endPage}">
@@ -84,11 +84,11 @@
                         </li>
                     </c:forEach>
                     <li class="page-item">
-                        <a class="page-link <c:if test="${page.last}">disabled</c:if>"
+                        <a class="page-link <c:if test="${page.last}">disabled invisible</c:if>"
                            href="camp_list.do?page=${page.curPage + 1}">▶︎</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link <c:if test="${page.last || (page.curPage + 10) > page.totalPage}">disabled</c:if>"
+                        <a class="page-link <c:if test="${page.last || (page.curPage + 10) > page.totalPage}">disabled invisible</c:if>"
                            href="camp_list.do?page=${page.curPage + 10}">&raquo;</a>
                     </li>
                 </ul>
