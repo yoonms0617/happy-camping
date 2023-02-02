@@ -25,7 +25,7 @@
                 <label for="userid">아이디</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="userId" name="userId">
-                    <button class="btn btn-outline-primary" type="button" id="check-duplicate-userId">중복확인</button>
+                    <button class="btn btn-outline-primary" type="button" id="checkIdBtn">중복확인</button>
                 </div>
                 <small>
                     <span id="userIdMsg"></span>
@@ -69,7 +69,8 @@
                     <input type="hidden" id="age" name="age">
                     <div class="d-flex justify-content-around">
                         <div class="me-3" style="width: 120px">
-                            <input type="text" class="form-control" id="yy" name="yy" placeholder="년(4자)">
+                            <input type="text" maxlength="4" class="form-control" id="yy" name="yy" placeholder="년(4자)">
+                            
                         </div>
                         <div class="me-3" style="width: 120px;">
                             <select class="form-select" id="mm" name="mm" style="height: 45px;">

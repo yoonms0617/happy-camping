@@ -1,41 +1,31 @@
-var nameFlag = false;
-var userIdFlag = false;
 var userIdCheckFlag = false;
-var passwordFlag = false;
-var emailFlag = false;
-var birthFlag = false;
-var phoneFlag = false;
-var genderFlag = false;
-var addressFlag = false;
 var submitFlag = false;
 
 $(function () {
-    $('#name').blur(function () {
-        nameFlag = false;
+    $('#name').blur(function () { // blur : tab으로 이동 가능
         checkName();
     });
-
     $('#userId').blur(function () {
-        userIdFlag = false;
         checkUserId();
     });
-
-    $('#check-duplicate-userId').click(function () {
+	// 아이디 중복확인 버튼
+    $('#checkIdBtn').click(function () {
         if (!checkUserId()) {
             return false;
         }
         var userId = $('#userId').val();
-        var oMsg = $('#userIdMsg');
+        var oMsg = $('#userIdMsg'); 
         if (userId === '') {
             showErrorMsg(oMsg, '아이디를 입력해 주세요.');
             return false;
-        }
+        }   
+             
         $.ajax({
-            type: 'GET',
-            url: '/check/userid.do?userId=' + userId,
-            dataType: 'text',
-            success: function (result) {
-                if (result === 'true') {
+		   type:'post',
+		   url:'/check/userid.do',
+		   data:{"userId":userId},
+		   success: function (result) {
+                if (result.trim() === 'true') {
                     showErrorMsg(oMsg, '사용 중인 아이디입니다.');
                     return false;
                 } else {
@@ -44,93 +34,84 @@ $(function () {
                 }
             }
         });
+        
     });
 
     $('#password1').blur(function () {
-        passwordFlag = false;
         checkPassword1();
     });
-
+	 
+	// 비밀번호 재입력
     $('#password2').blur(function () {
-        passwordFlag = false;
         checkPassword2();
     });
-
+    
     $('#sex').change(function () {
-        genderFlag = false;
         checkGender();
     });
 
     $('#yy').blur(function () {
-        birthFlag = false;
         checkBirth();
     });
-
+	
     $('#mm').change(function () {
-        birthFlag = false;
         checkBirth();
     });
 
     $('#dd').blur(function () {
-        birthFlag = false;
         checkBirth();
     });
 
     $('#email').blur(function () {
-        emailFlag = false;
         checkEmail();
     });
 
-    $('#phone').blur(function () {
-        phoneFlag = false;
+    $('#phone').blur(function () {      
         checkPhone();
     });
 
     $('#postcode').blur(function () {
-        addressFlag = false;
         checkAddress();
     });
-
+	
     $('#homeAddress').blur(function () {
-        addressFlag = false;
         checkAddress();
     });
-
+    
+    $('#detailAddress').blur(function () {
+        checkAddress();
+    });
+	
     $('#signup-btn').click(function () {
         checkInputValue();
         if (submitFlag) {
-            $('#signup-form').submit();
+            $('#signup-form').submit(); //
         }
     });
 });
 
 function checkName() {
-    if (nameFlag) {
-        return true;
-    }
-    var regexp = /[^가-힣a-zA-Z0-9]/gi;
+    // 유효성 검사
+    var regexp = /[^가-힣a-zA-Z0-9]/gi; 
     var name = $('#name').val();
     var oMsg = $('#nameMsg');
     if (name === '') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
+    // .test :  정규식 패턴 일치 문자열 포함 여부 체크
     if (name !== '' && regexp.test(name)) {
         showErrorMsg(oMsg, '한글과 영문 대소문자를 사용하세요. (특수기호, 공백 사용 불가)');
         return false;
     }
     showSuccessMsg(oMsg, '멋진 이름이네요!');
-    nameFlag = true;
     return true;
 }
 
 function checkUserId() {
-    if (userIdFlag) {
-        return true;
-    }
     var userId = $('#userId').val();
     var oMsg = $('#userIdMsg');
-    var regexp = /^[a-z0-9][a-z0-9_\-]{4,19}$/
+    var regexp = /^[a-z0-9][a-z0-9_\-]{4,19}$/ //구성된 길이 4 ~ 19자리 사이 문자열
     if (userId === '') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
@@ -139,7 +120,6 @@ function checkUserId() {
         showErrorMsg(oMsg, '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.');
         return false;
     }
-    userIdFlag = true;
     hideMsg(oMsg);
     return true;
 }
@@ -152,6 +132,7 @@ function checkPassword1() {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
+    
     if (!regexp.test(password1)) {
         showErrorMsg(oMsg, '8~16자 영문 대소문자, 숫자, 특수문자를 사용하세요.');
         return false;
@@ -161,9 +142,6 @@ function checkPassword1() {
 }
 
 function checkPassword2() {
-    if (passwordFlag) {
-        return true;
-    }
     var password1 = $('#password1').val();
     var password2 = $('#password2').val();
     var oMsg = $('#pwd2Msg');
@@ -176,29 +154,21 @@ function checkPassword2() {
         return false;
     }
     showSuccessMsg(oMsg, '비밀번호가 일치합니다.');
-    passwordFlag = true;
     return true;
 }
 
 function checkGender() {
-    if (genderFlag) {
-        return true;
-    }
     var gender = $('#sex').val();
     var oMsg = $('#genderMsg');
     if (gender === '' || gender === '성별') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
-    genderFlag = true;
     hideMsg(oMsg);
     return true;
 }
 
 function checkBirth() {
-    if (birthFlag) {
-        return true;
-    }
     var birth;
     var yy = $('#yy').val();
     var mm = $('#mm').val();
@@ -208,7 +178,8 @@ function checkBirth() {
         showErrorMsg(oMsg, '생년월일을 입력해 주세요.');
         return false;
     }
-    if (yy === '') {
+    //  yy의 글자수가 4가 아닐경우
+    if (yy === '' || yy.length != 4 ) {
         showErrorMsg(oMsg, '태어난 년도 4자리를 입력해 주세요.');
         return false;
     }
@@ -238,30 +209,22 @@ function checkBirth() {
     }
     $('#birth').val(birth);
     $('#age').val(age);
-    birthFlag = true;
     hideMsg(oMsg);
     return true;
 }
 
 function checkPhone() {
-    if (phoneFlag) {
-        return true;
-    }
     var phone = $('#phone').val();
     var oMsg = $('#phoneMsg');
     if (phone === '') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
-    phoneFlag = true;
     hideMsg(oMsg);
     return true;
 }
 
 function checkEmail() {
-    if (emailFlag) {
-        return true;
-    }
     var email = $('#email').val();
     var oMsg = $('#emailMsg');
     var regexp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -273,30 +236,30 @@ function checkEmail() {
         showErrorMsg(oMsg, '이메일 주소를 다시 확인해 주세요.');
         return false;
     }
-    $.ajax({
-        type: 'GET',
-        url: '/check/email.do?email=' + email,
-        dataType: 'text',
-        success: function (result) {
-            if (result === 'true') {
+    $. ajax({
+	      type:'post',
+	      url:'/check/email.do',
+	      data:{"email":email},
+	      
+	      success: function (result) {
+            if (result.trim() === 'true') {
                 showErrorMsg(oMsg, '사용 중인 이메일입니다.');
                 return false;
             } else {
                 showSuccessMsg(oMsg, '사용 가능한 이메일입니다.');
-                emailFlag = true;
             }
         }
-    });
+    })
     return true;
 }
 
 function checkAddress() {
-    if (addressFlag) {
-        return true;
-    }
     var postCode = $('#postcode').val();
     var homeAddr = $('#homeAddress').val();
+    var detailAddr = $('#detailAddress').val();
+ 
     var oMsg = $('#addrMsg');
+    
     if (postCode === '') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
@@ -305,29 +268,23 @@ function checkAddress() {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
-    addressFlag = true;
+    if (detailAddr === '') {
+        showErrorMsg(oMsg, '필수 정보입니다.');
+        return false;
+    }
     hideMsg(oMsg);
     return true;
 }
 
 function checkInputValue() {
-    checkName();
-    checkUserId();
-    checkPassword1();
-    checkPassword2();
-    checkGender();
-    checkBirth();
-    checkPhone();
-    checkEmail();
-    checkAddress();
-    if (nameFlag &&
-        userIdFlag &&
-        passwordFlag &&
-        genderFlag &&
-        birthFlag &&
-        phoneFlag &&
-        emailFlag &&
-        addressFlag) {
+    if (checkName() &&
+        checkUserId() &&
+        checkPassword1() &&
+        checkPassword2() &&
+        checkGender() &&
+        checkPhone() &&
+        checkEmail() &&
+        checkAddress()) {
         if (!userIdCheckFlag) {
             alert('아이디 중복 확인을 해주세요.');
             return false;

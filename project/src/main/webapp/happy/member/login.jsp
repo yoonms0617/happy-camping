@@ -10,7 +10,7 @@
                 <img src="/assets/images/main/logo/happy-logo-2.jpeg" width="400">
             </a>
         </div>
-        <form class="mt-3" id="login-form" method="post" action="#">
+        <form class="mt-3" id="login-form" method="post"> <!-- 로그인 -->
             <div class="form-floating">
                 <input type="text" class="form-control" id="userid" name="userid" placeholder="아이디">
                 <label for="userid">아이디</label>
@@ -20,9 +20,9 @@
                 <label for="password">비밀번호</label>
             </div>
             <div class="mt-3">
-                <small>
+                <font size="4">
                     <span id="err-msg" class="text-danger"></span>
-                </small>
+                </font>
             </div>
             <div class="mt-3">
                 <button class="w-100 btn btn-lg btn-primary" id="login-btn" type="button">로그인</button>
