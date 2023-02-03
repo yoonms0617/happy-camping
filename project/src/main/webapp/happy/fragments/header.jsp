@@ -7,7 +7,7 @@
 }
 .search img
 {
-   left: 1100px; top: 81px;
+   left: 1000px; top: 81px;
    position: absolute;
 }
 </style>
