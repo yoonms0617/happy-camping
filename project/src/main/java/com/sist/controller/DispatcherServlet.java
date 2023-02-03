@@ -55,10 +55,10 @@ public class DispatcherServlet extends HttpServlet {
         try {
             for (String model : models) {
                 Class<?> clazz = Class.forName(model);
-                Object object = clazz.getDeclaredConstructor().newInstance();
                 if (!clazz.isAnnotationPresent(Controller.class)) {
                     continue;
                 }
+                Object object = clazz.getDeclaredConstructor().newInstance();
                 Method[] methods = clazz.getDeclaredMethods();
                 for (Method method : methods) {
                     RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);

@@ -18,7 +18,7 @@ public class CampModel {
         this.campDAO = new CampDAO();
     }
 
-    @RequestMapping("camp_list.do")
+    @RequestMapping("camp/list.do")
     public String campList(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
         if (page == null) {
@@ -29,7 +29,7 @@ public class CampModel {
         return "/happy/camp/camp_list.jsp";
     }
 
-    @RequestMapping("camp_detail.do")
+    @RequestMapping("camp/detail.do")
     public String campDetail(HttpServletRequest request, HttpServletResponse response) {
         int cno = Integer.parseInt(request.getParameter("cno"));
         CampVO campVO = campDAO.campDetail(cno);

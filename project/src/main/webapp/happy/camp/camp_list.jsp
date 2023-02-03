@@ -24,7 +24,7 @@
             <div class="col">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-2 shadow-sm h-md-250 position-relative">
                     <div class="col-auto d-none d-lg-block">
-                        <a href="camp_detail.do?cno=${camp.cno}" class="text-decoration-none">
+                        <a href="/camp/detail.do?cno=${camp.cno}" class="text-decoration-none">
                             <img src="${camp.image}" width="300" height="250">
                         </a>
                     </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="mt-5">
                             <p>
-                                <a href="camp_detail.do?cno=${camp.cno}" class="text-underline-hover text-dark">
+                                <a href="/camp/detail.do?cno=${camp.cno}" class="text-underline-hover text-dark">
                                     <span class="mb-4 h2">${camp.name}</span>
                                 </a>
                             </p>
