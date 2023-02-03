@@ -148,8 +148,82 @@ public class MemberDAO {
     	}
     	return vo;
     }
-}
+    
+    // 아이디 찾기 => 전화번호로 찾기
+    public String memberIdtelfind(String name,String tel) {
+        String msg="";
+        try {
+           conn = dbConn.createConnection();
+           String sql = "select count(*) from HC_MEMBER_2 where name =? and tel=?";
+           ps = conn.prepareStatement(sql);
+           ps.setString(1, name);
+           ps.setString(2, tel);
+           ResultSet rs = ps.executeQuery();
+           rs.next();
+           int count = rs.getInt(1);
+           rs.close();
 
+           if(count == 0) {
+        	   msg="NO";
+           }else {
+              sql = "SELECT RPAD(substr(mid,1,3),LENGTH(mid), '*') from HC_MEMBER_2 "
+                  + "WHERE name =? and tel=?";
+              ps = conn.prepareStatement(sql);
+              ps.setString(1, name);
+              ps.setString(2, tel);
+              rs=ps.executeQuery();
+              rs.next();
+              msg = rs.getString(1);
+              rs.close();
+           }
+        } catch (Exception e) 
+        {
+           e.printStackTrace();
+        }finally {
+           dbConn.closeConnection(ps, conn);
+        }
+        return msg;        
+     }
+    
+    // 아이디 찾기 -> 이메일로 찾기
+    public String memberIdemailfind(String name,String email) {
+        String msg="";
+        try {
+            conn = dbConn.createConnection();
+            String sql = "select count(*) from HC_MEMBER_2 where name =? and email=?";
+           ps = conn.prepareStatement(sql);
+           ps.setString(1, name);
+           ps.setString(2, email);
+           ResultSet rs = ps.executeQuery();
+           rs.next();
+           int count = rs.getInt(1);
+           rs.close();
+          
+           if(count == 0) {
+        	   msg="NO";
+           }else {
+              sql = "SELECT RPAD(substr(mid,1,3),LENGTH(mid), '*') from HC_MEMBER_2 "
+                    +"where name =? and email=?";
+              ps = conn.prepareStatement(sql);
+              ps.setString(1, name);
+              ps.setString(2, email);
+              rs=ps.executeQuery();
+              rs.next();
+              msg = rs.getString(1);
+              rs.close();
+           }
+        } 
+        catch (Exception e) 
+        {
+           e.printStackTrace();
+        }
+        finally 
+        {
+           dbConn.closeConnection(ps, conn);
+        }
+        return msg;        
+     }
+}
 
 
 

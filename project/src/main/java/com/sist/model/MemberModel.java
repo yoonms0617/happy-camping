@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Controller
 public class MemberModel {
@@ -118,9 +119,41 @@ public class MemberModel {
   	  session.invalidate(); // 모든 정보 해제
   	  return "redirect:../main.do";
     }
-   	
+    // 아이디 찾기 페이지 이동 (member/idfind.do)
+    @RequestMapping("member/idfind.do")
+    public String idfindPage(HttpServletRequest request, HttpServletResponse response) 
+    {
+    	return "/happy/member/idfind.jsp";
+    }
+    // 아이디  찾기 => 전화번호로 찾기
+    @RequestMapping("member/idtelfind.do")
+    public void idtelfindPage(HttpServletRequest request, HttpServletResponse response) 
+    {
+    	String name=request.getParameter("name");
+    	String tel=request.getParameter("tel");
+        MemberDAO dao=new MemberDAO();
+        String res=dao.memberIdtelfind(name, tel);
+        try
+        {
+           PrintWriter out=response.getWriter();
+           out.println(res);
+        }catch(Exception ex){}
+    }
+    // 아이디  찾기 => 이메일로 찾기
+    @RequestMapping("member/ideamilfind.do")
+    public void idemailfindPage(HttpServletRequest request, HttpServletResponse response) 
+    {
+    	String name=request.getParameter("name");
+    	String email=request.getParameter("email");
+        MemberDAO dao=new MemberDAO();
+        String res=dao.memberIdemailfind(name, email);
+        try
+        {
+           PrintWriter out=response.getWriter();
+           out.println(res);
+        }catch(Exception ex){}
+    }
 }
-
 
 
 
