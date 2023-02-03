@@ -16,11 +16,11 @@
         <div class="container d-flex flex-wrap justify-content-end">
             <ul class="nav">
               <c:if test="${sessionScope.mid!=null }">
+                  <input type="hidden" id="loginMid" value="${sessionScope.mid}">
                <li class="nav-item me-3">
                <li class="nav-item" >
                  <a href="/member/update.do" class="text-decoration-none"style="font-size:18">My Page</a>
                </li>
-               &nbsp;&nbsp;&nbsp;
                <li>
                    <a href="/member/logout.do" class="text-decoration-none"style="font-size:18">로그아웃</a>
                 </li>

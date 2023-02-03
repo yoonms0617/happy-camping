@@ -79,40 +79,35 @@
                 <div id="map" style="width:100%;height:550px;"></div>
             </div>
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
+                <div class="mt-3">
+                    <ul class="list-group list-group-flush" id="review-list">
+                        <div class="d-flex justify-content-end">
+                        </div>
+                    </ul>
+                </div>
+                <div class="mt-1 mb-2">
+                    <nav class="d-flex justify-content-center">
+                        <ul class="pagination pagination-sm" id="page-buttons"></ul>
+                    </nav>
+                </div>
+                <div class="mt-3">
+                    <div class="form-floating">
+                        <textarea id="review-form" onkeydown="resize(this)" class="form-control"
+                                  onkeyup="resize(this)" style="width: 100%; min-height: 5rem; overflow-y: hidden; resize: none;"></textarea>
+                        <label for="review-form">댓글을 남겨보세요</label>
+                        <div class="mt-1 d-flex justify-content-end">
+                            <button class="btn btn-sm btn-primary" id="review-write" onclick="writeReview('${sessionScope.mid}')">등록</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <%@include file="/happy/fragments/footer.jsp" %>
 <%@include file="/happy/fragments/common-script.jsp" %>
-<script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a610b7237df91c7b85cb6a328aacca2e&libraries=services"></script>
-<script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
-        };
-    // 지도를 생성합니다
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    var address = $('#address').text();
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(address, function (result, status) {
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-        }
-    });
-</script>
+<script rel="script" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a610b7237df91c7b85cb6a328aacca2e&libraries=services"></script>
+<script rel="script" src="/assets/project/camp/js/camp_location.js"></script>
+<script rel="script" src="/assets/project/camp/js/camp_review.js"></script>
 </body>
 </html>
