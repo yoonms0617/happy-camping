@@ -13,7 +13,7 @@ import com.sist.vo.ItemVO;
 @Controller
 public class ItemModel {
 
-    @RequestMapping("list.do")
+    @RequestMapping("item/list.do")
     public String listPage(HttpServletRequest request, HttpServletResponse response) {
         String page = request.getParameter("page");
         if (page == null) {
