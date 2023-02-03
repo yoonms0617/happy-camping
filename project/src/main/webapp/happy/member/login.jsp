@@ -35,6 +35,7 @@
                 회원가입 GO
             </a>
             <div class="mt-3">
+                <a href="/member/idfind.do" class="text-secondary text-decoration-underline">아이디 찾기</a>
                 <a href="#" class="text-secondary text-decoration-underline">비밀번호 찾기</a>
             </div>
         </div>
