@@ -17,4 +17,8 @@ public class CampReviewVO {
 
     private Date regDate;
 
+    private String mid;
+
+    private int cno;
+
 }
