@@ -72,24 +72,24 @@
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
                         <a class="page-link <c:if test="${page.first || page.curPage - 10 <= 0}">disabled invisible</c:if>"
-                           href="camp_list.do?page=${page.curPage - 10}">&laquo;</a>
+                           href="/camp/list.do?page=${page.curPage - 10}">&laquo;</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link <c:if test="${page.first}">disabled invisible</c:if>"
-                           href="camp_list.do?page=${page.curPage - 1}">◀︎</a>
+                           href="/camp/list.do?page=${page.curPage - 1}">◀︎</a>
                     </li>
                     <c:forEach var="pageNumber" begin="${page.startPage}" end="${page.endPage}">
                         <li class="page-item <c:if test="${pageNumber == page.curPage}">active</c:if>">
-                            <a class="page-link" href="camp_list.do?page=${pageNumber}">${pageNumber}</a>
+                            <a class="page-link" href="/camp/list.do?page=${pageNumber}">${pageNumber}</a>
                         </li>
                     </c:forEach>
                     <li class="page-item">
                         <a class="page-link <c:if test="${page.last}">disabled invisible</c:if>"
-                           href="camp_list.do?page=${page.curPage + 1}">▶︎</a>
+                           href="/camp/list.do?page=${page.curPage + 1}">▶︎</a>
                     </li>
                     <li class="page-item">
                         <a class="page-link <c:if test="${page.last || (page.curPage + 10) > page.totalPage}">disabled invisible</c:if>"
-                           href="camp_list.do?page=${page.curPage + 10}">&raquo;</a>
+                           href="/camp/list.do?page=${page.curPage + 10}">&raquo;</a>
                     </li>
                 </ul>
             </nav>
