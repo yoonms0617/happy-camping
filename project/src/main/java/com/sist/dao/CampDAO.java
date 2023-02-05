@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sist.util.DBConn;
 import com.sist.util.Pagination;
@@ -19,8 +22,17 @@ public class CampDAO {
 
     private final DBConn dbconn;
 
+    private final Map<String, String> orderQuery = new HashMap<>();
+
+    private final Map<String, String> searchQuery = new HashMap<>();
+
     public CampDAO() {
         this.dbconn = DBConn.getInstance();
+        orderQuery.put("new", "cno ASC");
+        orderQuery.put("hit", "hit DESC");
+        searchQuery.put("all", "WHERE name LIKE ? OR address LIKE ? ");
+        searchQuery.put("name", "WHERE name LIKE ? AND address LIKE ?");
+        searchQuery.put("addr", "WHERE address LIKE ? AND name LIKE ? ");
     }
 
     public List<CampVO> campItems() {
@@ -57,32 +69,35 @@ public class CampDAO {
         return list;
     }
 
-    public Pagination campList(int curPage) {
+    public Pagination campList(int curPage, String orderType, String searchType, String searchKeyword) {
+        List<CampVO> campList = new ArrayList<>();
         String sql = "SELECT cno, image, name, tel , address, hit, num "
                 + "FROM (SELECT cno, image, name, tel , address, hit, rownum as num "
-                + "FROM (SELECT /*+index_asc(HC_CAMP_2 hc_camp_cno_pk)*/cno, image, name, tel, address, hit "
-                + "FROM HC_CAMP_2 ORDER BY cno ASC)) "
+                + "FROM (SELECT /*+index(HC_CAMP_2 hc_camp_cno_pk)*/ cno, image, name, tel, address, hit "
+                + "FROM HC_CAMP_2 " + searchQuery.get(searchType) + "ORDER BY " + orderQuery.get(orderType) + ")) "
                 + "WHERE num BETWEEN ? AND ?";
-        String total = "SELECT COUNT(*) FROM HC_CAMP_2";
-        List<CampVO> campList = new ArrayList<>();
+        String allCampCnt = "SELECT COUNT(*) FROM HC_CAMP_2 " + searchQuery.get(searchType);
+        String sub = "%%";
+        if (searchType.equals("all")) {
+            sub = "%" + searchKeyword + "%";
+        }
         int rowSize = 10;
         int start = (rowSize * curPage) - (rowSize - 1);
         int end = rowSize * curPage;
-        int totalPage = 0;
+        int totalCmp = 0;
         try {
             conn = dbconn.createConnection();
-            ps = conn.prepareStatement(total);
+            ps = conn.prepareStatement(allCampCnt);
+            ps.setString(1, "%" + searchKeyword + "%");
+            ps.setString(2, sub);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            totalPage = rs.getInt(1);
-            if (totalPage % rowSize != 0) {
-                totalPage = totalPage / rowSize + 1;
-            } else {
-                totalPage = totalPage / rowSize;
-            }
+            totalCmp = rs.getInt(1);
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, start);
-            ps.setInt(2, end);
+            ps.setString(1, "%" + searchKeyword + "%");
+            ps.setString(2, sub);
+            ps.setInt(3, start);
+            ps.setInt(4, end);
             rs = ps.executeQuery();
             while (rs.next()) {
                 CampVO vo = new CampVO();
@@ -101,11 +116,12 @@ public class CampDAO {
         } finally {
             dbconn.closeConnection(ps, conn);
         }
-        return new Pagination(campList, curPage, totalPage);
+        return new Pagination(campList, curPage, totalCmp);
     }
 
     public CampVO campDetail(int cno) {
         String sql = "SELECT image, name, address, homepage, tel, camp_type, period, day, camp_env FROM HC_CAMP_2 WHERE cno = ?";
+        String updateHit = "UPDATE HC_CAMP_2 SET hit = hit + 1 WHERE cno = ?";
         CampVO campVO = new CampVO();
         try {
             conn = dbconn.createConnection();
@@ -122,6 +138,9 @@ public class CampDAO {
             campVO.setPeriod(rs.getString(7));
             campVO.setDay(rs.getString(8));
             campVO.setCampEnv(rs.getString(9));
+            ps = conn.prepareStatement(updateHit);
+            ps.setInt(1, cno);
+            ps.executeUpdate();
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
