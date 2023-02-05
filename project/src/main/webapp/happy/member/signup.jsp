@@ -101,7 +101,7 @@
             <div class="mt-3">
                 <label for="phone">전화번호</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control" id="phone" name="phone" maxlength="13" oninput="autoHyphen(this)">
                 </div>
                 <small>
                     <span id="phoneMsg"></span>

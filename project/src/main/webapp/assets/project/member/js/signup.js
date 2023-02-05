@@ -216,12 +216,25 @@ function checkBirth() {
 function checkPhone() {
     var phone = $('#phone').val();
     var oMsg = $('#phoneMsg');
+    var regexp = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/; // 01X(1,6,7,8,9)-XXXX-XXXX 검사
     if (phone === '') {
         showErrorMsg(oMsg, '필수 정보입니다.');
         return false;
     }
+    if (!regexp.test(phone)) {
+        showErrorMsg(oMsg, '핸드폰 번호를 확인해 주세요.')
+        return false;
+    }
     hideMsg(oMsg);
     return true;
+}
+
+// 자동으로 하이픈(-) 추가하는 함수
+function autoHyphen(target) {
+    return target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+        .replace(/(\-{1,2})$/g, "");
 }
 
 function checkEmail() {
