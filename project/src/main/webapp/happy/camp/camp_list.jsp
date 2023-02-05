@@ -34,7 +34,7 @@
             </form>
         </div>
         <div class="fs-4">
-            총 <span class="text-warning">${page.allCampCnt}개</span> 캠핑장이 검색되었습니다.
+            총 <span class="text-warning">${page.totalItemCnt}개</span> 캠핑장이 검색되었습니다.
         </div>
         <div class="mt-1 mb-2">
             <select id="order" style="width: 150px">
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="mb-1" id="camp-list">
-        <c:if test="${page.allCampCnt == 0}">
+        <c:if test="${page.totalItemCnt == 0}">
             <div class="text-center">
                 <h3>검색된 캠핑장이 없습니다.</h3>
             </div>
@@ -101,7 +101,7 @@
             </div>
         </c:forEach>
         <div class="mt-5">
-            <nav aria-label="Page navigation example">
+            <nav>
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
                         <a class="page-link <c:if test="${page.first || page.curPage - 10 <= 0}">disabled invisible</c:if>"
