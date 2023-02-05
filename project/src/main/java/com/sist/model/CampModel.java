@@ -32,8 +32,23 @@ public class CampModel {
         if (page == null) {
             page = "1";
         }
-        Pagination pagination = campDAO.campList(Integer.parseInt(page));
+        String orderType = request.getParameter("orderType");
+        if (orderType == null) {
+            orderType = "new";
+        }
+        String searchType = request.getParameter("searchType");
+        if (searchType == null) {
+            searchType = "all";
+        }
+        String searchKeyword = request.getParameter("searchKeyword");
+        if (searchKeyword == null) {
+            searchKeyword = "";
+        }
+        Pagination pagination = campDAO.campList(Integer.parseInt(page), orderType, searchType, searchKeyword);
         request.setAttribute("page", pagination);
+        request.setAttribute("orderType", orderType);
+        request.setAttribute("searchType", searchType);
+        request.setAttribute("searchKeyword", searchKeyword);
         return "/happy/camp/camp_list.jsp";
     }
 

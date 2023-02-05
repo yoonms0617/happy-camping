@@ -15,9 +15,9 @@ public class Pagination {
 
     private int endPage = 0;
 
-    private int totalPage = 0;
+    private int allCampCnt;
 
-    private final int rowSize = 10;
+    private int totalPage = 0;
 
     private boolean isFirst = false;
 
@@ -27,10 +27,11 @@ public class Pagination {
 
     private boolean hasNext = true;
 
-    public Pagination(List<?> items, int curPage, int totalPage) {
+    public Pagination(List<?> items, int curPage, int allCampCnt) {
         this.items = items;
         this.curPage = curPage;
-        this.totalPage = totalPage;
+        this.allCampCnt = allCampCnt;
+        setTotalPage(allCampCnt);
         makeBlock(curPage);
         setFirst();
         setLast();
@@ -39,11 +40,21 @@ public class Pagination {
     }
 
     private void makeBlock(int curPage) {
+        int rowSize = 10;
         int temp = (int) Math.floor((curPage - 1) / rowSize);
         startPage = (rowSize * temp) + 1;
         endPage = startPage + (rowSize - 1);
         if (totalPage <= endPage) {
             endPage = totalPage;
+        }
+    }
+
+    private void setTotalPage(int allCampCnt) {
+        int rowSize = 10;
+        if (allCampCnt % rowSize != 0) {
+            totalPage = allCampCnt / rowSize + 1;
+        } else {
+            totalPage = allCampCnt / rowSize;
         }
     }
 
