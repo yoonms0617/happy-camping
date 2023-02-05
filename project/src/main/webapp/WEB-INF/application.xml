@@ -4,4 +4,5 @@
     <bean class="com.sist.model.MemberModel"/>
     <bean class="com.sist.model.CampModel"/>
     <bean class="com.sist.model.ItemModel"/>
+    <bean class="com.sist.model.NoticeModel"/>
 </beans>

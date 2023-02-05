@@ -15,7 +15,7 @@ public class Pagination {
 
     private int endPage = 0;
 
-    private int allCampCnt;
+    private int totalItemCnt;
 
     private int totalPage = 0;
 
@@ -27,11 +27,11 @@ public class Pagination {
 
     private boolean hasNext = true;
 
-    public Pagination(List<?> items, int curPage, int allCampCnt) {
+    public Pagination(List<?> items, int curPage, int totalItemCnt) {
         this.items = items;
         this.curPage = curPage;
-        this.allCampCnt = allCampCnt;
-        setTotalPage(allCampCnt);
+        this.totalItemCnt = totalItemCnt;
+        setTotalPage(totalItemCnt);
         makeBlock(curPage);
         setFirst();
         setLast();
@@ -40,7 +40,7 @@ public class Pagination {
     }
 
     private void makeBlock(int curPage) {
-        int rowSize = 10;
+        int rowSize = 10;   // 숫자 선택 블록 개수
         int temp = (int) Math.floor((curPage - 1) / rowSize);
         startPage = (rowSize * temp) + 1;
         endPage = startPage + (rowSize - 1);
@@ -49,12 +49,12 @@ public class Pagination {
         }
     }
 
-    private void setTotalPage(int allCampCnt) {
-        int rowSize = 10;
-        if (allCampCnt % rowSize != 0) {
-            totalPage = allCampCnt / rowSize + 1;
+    private void setTotalPage(int totalItemCnt) {
+        int rowSize = 10;   // 페이지당 보여줄 개수
+        if (totalItemCnt % rowSize != 0) {
+            totalPage = totalItemCnt / rowSize + 1;
         } else {
-            totalPage = allCampCnt / rowSize;
+            totalPage = totalItemCnt / rowSize;
         }
     }
 
