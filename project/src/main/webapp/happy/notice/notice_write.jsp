@@ -36,7 +36,8 @@
         el: document.querySelector('#content'),
         language: 'ko-KR',
         initialEditType: 'wysiwyg',
-        height: '500px'
+        height: '500px',
+        hideModeSwitch: true
     });
     $(function () {
         $('#notice-write-btn').click(function () {
