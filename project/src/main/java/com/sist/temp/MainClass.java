@@ -1,7 +1,9 @@
 package com.sist.temp;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 public class MainClass {
-	
+
 	public static void main(String[] args) {
 		Connection conn=null;
 		PreparedStatement ps =null;
@@ -11,15 +13,15 @@ public class MainClass {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String url="jdbc:oracle:thin:@localhost:1521:XE";
 			conn=DriverManager.getConnection(url,"hr","happy");
-			conn.setAutoCommit(false); // 커밋을 수행하지 않게 한다 
+			conn.setAutoCommit(false); // 커밋을 수행하지 않게 한다
 			String sql="insert into card values(1,'hong',30000) ";
 			ps=conn.prepareStatement(sql);
 			ps.executeUpdate(); // -> commit 취소 (setAutoCommit)
-			
+
 			sql="insert into point values(1,'park',300) ";
 			ps=conn.prepareStatement(sql);
 			ps.executeUpdate(); //commit
-			
+
 			conn.commit(); // 전체 저장
 		}catch(Exception ex)
 		{
@@ -32,7 +34,7 @@ public class MainClass {
 		{
 			try
 			{
-				
+
 				if(conn!=null)conn.close();
 				if(ps!=null)ps.close();
 			}catch (Exception e) {}

@@ -40,7 +40,7 @@
         <div class="mt-4 mb-4">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 text-start">
-                    <a class="text-dark h1 text-decoration-none" href="/main.do">행복한 캠핑</a>
+                     <a class="text-dark h1 text-decoration-none" href="main.do"><img src="\happy\fragments\hclogo.png" style="width: 400px; height: auto"></a>
                 </div>
                 <div name="검색" class="search">
                   <input type=text style="height:40px;width:400px;" placeholder="  검색어를 입력하세요" >
