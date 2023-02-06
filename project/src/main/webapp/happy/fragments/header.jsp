@@ -2,14 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 <style>
-.search input
+.position
 {
-  border-radius: 5px 5px 5px 5px;
-}
-.search img
-{
-   left: 915px; top: 78px; 
-   position: absolute;
+   position:fixed;
 }
 </style>
 <header>
@@ -38,18 +33,29 @@
         </div>
     </div>
     <div class="container">
-        <div class="mt-4 mb-4">
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 text-start">
-                     <a class="text-dark h1 text-decoration-none" href="main.do"><img src="\happy\fragments\hclogo.png" style="width: 400px; height: auto"></a>
+        <div class="mt-4 mb-4"><!--justify-content-between  -->
+            <div class="row flex-nowrap align-items-center                                                                                                                                                                                                                                                                                                                                                                                                                              ">
+                <div class="col-4 text-start" >
+                     <a class="text-dark h1 text-decoration-none" href="../main.do"><img src="\happy\fragments\hclogo.png" class="img-thumbnail border-0" style="width:350px"></a>
                 </div>
-                <form method =post action="../search/list.do" class="inline" >
-                <div name="검색" class="search">
-                  <input type=text style="height:40px;width:400px;" placeholder="  검색어를 입력하세요" name="ss" value="${ss }" >
-                    <!-- TO_DO => 돋보기 이미지 눌렀을 때도 검색되게 하기 -->
-                    <img src="/assets/images/main/search/search.png" width="20" name="button">
-                 </div>
-                 </form>
+               
+                 <div>
+            <form action="../search/list.do" method="get">
+                <input type="hidden" value="${orderType}" name="orderType">
+                <div class="d-flex justify-content-start mt-5">
+                    <div class="me-2" style="width: 130px;">
+                        <select class="form-select" id="search-type" name="searchType">
+                            <option value="all" <c:if test="${searchType == 'all'}">selected</c:if>>통합검색</option>
+                            <option value="item" <c:if test="${searchType == 'item'}">selected</c:if>>상품</option>
+                        </select>
+                    </div>
+                    <div class="input-group" style="max-width: 400px;">
+                        <input type="text" class="form-control" id="search-key" name="searchKeyword" value="${searchKeyword}">
+                        <button class="btn btn-outline-success" type="submit" id="search-btn" style="width: 80px;">검색</button>
+                    </div>
+                </div>
+            </form>
+        </div>
             </div>
         </div>
         <hr>
