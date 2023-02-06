@@ -51,11 +51,7 @@ public class Pagination {
 
     private void setTotalPage(int totalItemCnt) {
         int rowSize = 10;   // 페이지당 보여줄 개수
-        if (totalItemCnt % rowSize != 0) {
-            totalPage = totalItemCnt / rowSize + 1;
-        } else {
-            totalPage = totalItemCnt / rowSize;
-        }
+        this.totalPage = (int) Math.ceil(totalItemCnt / rowSize) + 1;
     }
 
     private void setFirst() {

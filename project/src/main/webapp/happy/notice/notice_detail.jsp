@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="/happy/fragments/head.jsp" %>
+<style>
+    #notice-content p {
+        margin: 0;
+    }
+</style>
 <body>
 <%@include file="/happy/fragments/header.jsp" %>
 <div class="container">
@@ -27,7 +32,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="p-2 m-auto">
+                    <div class="p-2 m-auto" id="notice-content">
                         ${notice.content}
                     </div>
                 </td>
