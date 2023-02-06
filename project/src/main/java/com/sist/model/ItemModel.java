@@ -61,7 +61,10 @@ public class ItemModel {
         String page=request.getParameter("page");
         if(page==null)
         	page="1";
-        
+        String searchType = request.getParameter("searchType");
+        if (searchType == null) {
+            searchType = "all";
+        }
         int curpage=Integer.parseInt(page);
         ItemDAO dao=new ItemDAO();
         List<ItemVO> list=dao.itemsearchData(curpage, ss);
@@ -75,15 +78,15 @@ public class ItemModel {
         if(endPage>totalpage)
            endPage=totalpage;
        
+        request.setAttribute("searchType", searchType);
         request.setAttribute("ss", ss);
         request.setAttribute("list", list);
         request.setAttribute("curpage", curpage);
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("itemtotal", itemtotal);
         request.setAttribute("startPage", startPage);
-        request.setAttribute("endPage", endPage);
-        
-    	return "/happy/search/search.jsp";
+        request.setAttribute("endPage", endPage);      
+      	return "/happy/search/search.jsp"; // 아이템 관련 파일 추가시 변경 예정
     }
     // 서치후 디테일
     @RequestMapping("search/detail.do")
