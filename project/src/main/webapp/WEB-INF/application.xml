@@ -5,4 +5,5 @@
     <bean class="com.sist.model.CampModel"/>
     <bean class="com.sist.model.ItemModel"/>
     <bean class="com.sist.model.NoticeModel"/>
+    <bean class="com.sist.model.MyPageModel"/>
 </beans>
