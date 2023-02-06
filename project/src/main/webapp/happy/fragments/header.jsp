@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
+<style>
 .search input
 {
   border-radius: 5px 5px 5px 5px;
 }
 .search img
 {
-   left: 1000px; top: 81px;
+   left: 915px; top: 78px; 
    position: absolute;
 }
 </style>
@@ -40,12 +41,15 @@
         <div class="mt-4 mb-4">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 text-start">
-                     <a class="text-dark h1 text-decoration-none" href="/main.do"><img src="\happy\fragments\hclogo.png" style="width: 400px; height: auto"></a>
+                     <a class="text-dark h1 text-decoration-none" href="main.do"><img src="\happy\fragments\hclogo.png" style="width: 400px; height: auto"></a>
                 </div>
+                <form method =post action="../search/list.do" class="inline" >
                 <div name="검색" class="search">
-                  <input type=text style="height:40px;width:400px;" placeholder="  검색어를 입력하세요" >
-                    <img src="/assets/images/main/search/search.png" width="20" >
+                  <input type=text style="height:40px;width:400px;" placeholder="  검색어를 입력하세요" name="ss" value="${ss }" >
+                    <!-- TO_DO => 돋보기 이미지 눌렀을 때도 검색되게 하기 -->
+                    <img src="/assets/images/main/search/search.png" width="20" name="button">
                  </div>
+                 </form>
             </div>
         </div>
         <hr>
