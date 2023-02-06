@@ -1,13 +1,13 @@
 package com.sist.model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.NoticeDAO;
 import com.sist.util.Pagination;
 import com.sist.vo.NoticeVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class NoticeModel {

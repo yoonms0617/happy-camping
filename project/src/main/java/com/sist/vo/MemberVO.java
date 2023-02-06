@@ -28,7 +28,7 @@ public class MemberVO {
     private String sex;
 
     private String role;
-    
+
     private String msg;
 
 }

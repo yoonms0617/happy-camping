@@ -1,13 +1,12 @@
 package com.sist.dao;
 
-import com.sist.controller.annotation.RequestMapping;
-import com.sist.util.DBConn;
-import com.sist.vo.MemberVO;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.sist.util.DBConn;
+import com.sist.vo.MemberVO;
 
 public class MemberDAO {
 
@@ -20,12 +19,12 @@ public class MemberDAO {
     public MemberDAO() {
         this.dbConn = DBConn.getInstance();
     }
-    // 1. 회원가입 
+    // 1. 회원가입
     public void memberInsert(MemberVO vo)
     {
     	try {
     		conn=dbConn.createConnection();
-    		// 일반회원, 관리자 
+    		// 일반회원, 관리자
     		String sql ="insert into HC_MEMBER_2 values(?,?,?,?,?,?,?,?,?,?,'일반회원') ";
     		ps=conn.prepareStatement(sql);
     		ps.setString(1, vo.getMid());
@@ -39,7 +38,7 @@ public class MemberDAO {
     		ps.setString(9, vo.getDetailAddr());
     		ps.setString(10, vo.getSex());
     		ps.executeUpdate();
-    		
+
     	}catch(Exception ex)
     	{
     		ex.printStackTrace();
@@ -47,10 +46,10 @@ public class MemberDAO {
     	finally
     	{
     		dbConn.closeConnection(ps, conn);
-    		
+
     	}
     }
-    
+
     public boolean memberIdCheck(String userId) {
         String sql = "SELECT COUNT(*) FROM HC_MEMBER_2 WHERE mid = ?";
         boolean flag = true;
@@ -65,14 +64,14 @@ public class MemberDAO {
                 flag = false;
             }
             rs.close();
-        } catch (SQLException e) { 
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             dbConn.closeConnection(ps, conn);
         }
         return flag;
     }
-    
+
     public boolean memberEmailCheck(String email) {
         String sql = "SELECT COUNT(*) FROM HC_MEMBER_2 WHERE email = ?";
         boolean flag = true;
@@ -94,7 +93,7 @@ public class MemberDAO {
         }
         return flag;
     }
-    
+
     public MemberVO memberLogin(String mid, String password)
     {
     	MemberVO vo = new MemberVO();
@@ -108,12 +107,12 @@ public class MemberDAO {
     		rs.next();
     		int count =rs.getInt(1);
     		rs.close();
-    		
+
     		if(count==0)
     		{
     			vo.setMsg("NOID");
     		}
-    		else 
+    		else
     		{
     			sql ="select mid, password, role from HC_MEMBER_2 where mid=?";
     			ps=conn.prepareStatement(sql);
@@ -124,16 +123,16 @@ public class MemberDAO {
     			String db_password=rs.getString(2);
     			String db_role=rs.getString(3);
     			rs.close();
-    			
+
     		    if(db_password.equals(password))
     		    {
-    		    	
+
     		    	vo.setMsg("OK");
     		    	vo.setMid(db_mid);
     		    	vo.setPassword(db_password);
     		    	vo.setRole(db_role);
     		    }
-    		    else  
+    		    else
     		    {
     		    	vo.setMsg("NOPWD");
     		    }
@@ -148,7 +147,7 @@ public class MemberDAO {
     	}
     	return vo;
     }
-    
+
     // 아이디 찾기 => 전화번호로 찾기
     public String memberIdtelfind(String name,String tel) {
         String msg="";
@@ -176,15 +175,15 @@ public class MemberDAO {
               msg = rs.getString(1);
               rs.close();
            }
-        } catch (Exception e) 
+        } catch (Exception e)
         {
            e.printStackTrace();
         }finally {
            dbConn.closeConnection(ps, conn);
         }
-        return msg;        
+        return msg;
      }
-    
+
     // 아이디 찾기 -> 이메일로 찾기
     public String memberIdemailfind(String name,String email) {
         String msg="";
@@ -198,7 +197,7 @@ public class MemberDAO {
            rs.next();
            int count = rs.getInt(1);
            rs.close();
-          
+
            if(count == 0) {
         	   msg="NO";
            }else {
@@ -212,16 +211,16 @@ public class MemberDAO {
               msg = rs.getString(1);
               rs.close();
            }
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
            e.printStackTrace();
         }
-        finally 
+        finally
         {
            dbConn.closeConnection(ps, conn);
         }
-        return msg;        
+        return msg;
      }
 }
 
