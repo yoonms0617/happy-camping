@@ -209,5 +209,134 @@ public class ItemDAO {
         String[] image = images.split(",");
         return image[0];
     }
-
+ // 서치후 디테일
+    public ItemVO itemDetailData(int ino) {
+        ItemVO vo = new ItemVO();
+        try {
+           conn = dbConn.createConnection();
+           String sql = "SELECT ino, image, name,description, brand, price, like_cnt, jjim_cnt,sale "
+                 +"FROM hc_item_2 WHERE ino=?";
+          // System.out.println("sql:" + sql);/////////////////////////////////////
+           ps = conn.prepareStatement(sql);
+           ps.setInt(1, ino);
+           
+           ResultSet rs = ps.executeQuery();
+           rs.next();
+           vo.setIno(rs.getInt(1));
+           String image = rs.getString(2); 
+           image = image.substring(0, image.indexOf(","));
+           vo.setImage(image); 
+           vo.setName(rs.getString(3));
+           String description=(rs.getString(4));
+           vo.setDescription(description);
+           vo.setBrand(rs.getString(5));
+           vo.setPrice(rs.getInt(6));
+           vo.setLikeCnt(rs.getInt(7));
+           vo.setJjimCnt(rs.getInt(8));
+           vo.setSale(rs.getInt(9));
+           rs.close();
+           
+           
+        } catch (Exception e) {
+           e.printStackTrace();
+        }finally {
+           dbConn.closeConnection(ps, conn);
+        }
+        return vo;
+     }
+ // 검색후 아이템 출력
+    public List<ItemVO> itemsearchData(int page, String ss)
+    {
+    	List<ItemVO> list=new ArrayList<ItemVO>();
+    	try
+    	{
+    		conn=dbConn.createConnection();
+    		String sql="select ino,image,name,price,sale,num "
+    				 + "from (select ino,image,name,price,sale,rownum as num "
+    				 + "from (select ino,image,name,price,sale "
+    				 + "from HC_ITEM_2 "
+    				 + "where name LIKE '%'||?||'%')) "
+    				 + "where num between ? and ?";
+    	   ps=conn.prepareStatement(sql);
+    	   int rowSize=20;
+    	   int start=(rowSize*page)-(rowSize-1);
+    	   int end=rowSize*page;
+    	   ps.setString(1, ss);
+		   ps.setInt(2, start);
+		   ps.setInt(3, end);
+		   ResultSet rs=ps.executeQuery();
+		   while(rs.next())
+		   {
+			   ItemVO vo=new ItemVO();
+			   vo.setIno(rs.getInt(1));
+			   String image =rs.getString(2);
+			   image=image.substring(0,image.indexOf(",")); // 여러 이미지
+			   vo.setImage(image);
+			   vo.setName(rs.getString(3));
+			   vo.setPrice(rs.getInt(4));
+			   vo.setSale(rs.getInt(5));
+			   list.add(vo);
+		   }
+		   rs.close();
+    	}
+    	catch (Exception e) {
+			e.printStackTrace();
+		}
+    	finally
+    	{
+    		dbConn.closeConnection(ps, conn);
+    	}
+    	return list;
+    }
+ // 검색후 아이템 수
+    public int itemsearchTotal(String ss)
+    {
+    	int total=0;
+ 	   	try
+ 	    {
+ 		   conn=dbConn.createConnection();
+ 		   String sql="SELECT CEIL(COUNT(*)) FROM HC_ITEM_2 "
+ 				     +"WHERE name LIKE '%'||?||'%'";
+ 		   ps=conn.prepareStatement(sql);
+ 		   ps.setString(1, ss);
+ 		   ResultSet rs=ps.executeQuery();
+ 		   rs.next();
+ 		   total=rs.getInt(1);
+ 		   rs.close();
+ 	   }catch(Exception ex)
+ 	   {
+ 		   ex.printStackTrace();
+ 	   }
+ 	   finally
+ 	   {
+ 		   dbConn.closeConnection(ps, conn);
+ 	   }
+ 	   return total;
+    }
+    // 검색후 아이템 페이지 수
+    public int itemsearchTotalPage(String ss)
+    {
+    	int total=0;
+ 	   	try
+ 	    {
+ 		   conn=dbConn.createConnection();
+ 		   String sql="SELECT CEIL(COUNT(*)/20.0) FROM HC_ITEM_2 "
+ 				     +"WHERE name LIKE '%'||?||'%'";
+ 		   ps=conn.prepareStatement(sql);
+ 		   ps.setString(1, ss);
+ 		   ResultSet rs=ps.executeQuery();
+ 		   rs.next();
+ 		   total=rs.getInt(1);
+ 		   rs.close();
+ 	   }catch(Exception ex)
+ 	   {
+ 		   ex.printStackTrace();
+ 	   }
+ 	   finally
+ 	   {
+ 		   dbConn.closeConnection(ps, conn);
+ 	   }
+ 	   return total;
+    }
+ 
 }

@@ -51,5 +51,52 @@ public class ItemModel {
         request.setAttribute("title", title[Integer.parseInt(type)]);
         return "/happy/item/item_list.jsp";
     }
+ // 검색창 목록 출력
+    @RequestMapping("search/list.do")
+    public String searchlistPage(HttpServletRequest request, HttpServletResponse response) {
+        try {
+        	request.setCharacterEncoding("utf-8");
+        }catch(Exception ex) {}
+        String ss=request.getParameter("ss");
+        String page=request.getParameter("page");
+        if(page==null)
+        	page="1";
+        
+        int curpage=Integer.parseInt(page);
+        ItemDAO dao=new ItemDAO();
+        List<ItemVO> list=dao.itemsearchData(curpage, ss);
+        int itemtotal=dao.itemsearchTotal(ss);
+        int totalpage=dao.itemsearchTotalPage(ss);
+        
+        final int BLOCK=10;
+        int temp = (int) Math.floor((curpage - 1) / BLOCK);
+        int startPage=(BLOCK * temp) + 1;
+        int endPage = startPage + (BLOCK - 1);
+        if(endPage>totalpage)
+           endPage=totalpage;
+       
+        request.setAttribute("ss", ss);
+        request.setAttribute("list", list);
+        request.setAttribute("curpage", curpage);
+        request.setAttribute("totalpage", totalpage);
+        request.setAttribute("itemtotal", itemtotal);
+        request.setAttribute("startPage", startPage);
+        request.setAttribute("endPage", endPage);
+        
+    	return "/happy/search/search.jsp";
+    }
+    // 서치후 디테일
+    @RequestMapping("search/detail.do")
+    public String itemDetailPage(HttpServletRequest request, HttpServletResponse response) {
+       int ino = Integer.parseInt(request.getParameter("ino"));
+       ItemDAO dao = new ItemDAO();
+       ItemVO vo = dao.itemDetailData(ino);
+       String description = vo.getDescription();
+       String[] descript = description.split(",");
+
+       request.setAttribute("descript", descript);
+       request.setAttribute("vo", vo);
+       return "/happy/search/search_detail.jsp";
+    }
 
 }

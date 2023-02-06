@@ -1,0 +1,95 @@
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, 0);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+	img:hover {
+	 filter: brightness(50%);
+	
+	}
+	
+	.clear{ /* css초기화 */
+		clear: both;
+	}
+	#content_box{
+		padding-top: 30px;
+	}
+	.box h3{
+		float:inherit;
+		/* margin-left: 770px; */
+	}
+	
+	.box p{
+		float: right;
+		margin-top: 50px;
+		/* margin-right: 300px; */
+	}
+	
+	/* 페이지 버튼 인터페이스 */
+	.pageMaker_wrap{
+		text-align: center;
+	    margin-top: 30px;
+	    margin-bottom: 40px;
+	}
+	.pageMaker{
+	    list-style: none;
+	    display: inline-block;
+	}	
+	.pageMaker_btn {
+	    float: left;
+	    width: 12px;
+	    height: 40px;
+	    line-height: 40px;
+	    margin-left: 20px;
+	}
+	.active{
+		border : 2px solid black;
+		font-weight:100;
+	}
+	.next, .prev {
+	    border: 1px solid #ccc;
+	    padding: 0 10px;
+	    width: 65px;
+	    font-size: 13px;
+	}
+	.pageMaker_btn a:link {color: black;}
+	.pageMaker_btn a:visited {color: black;}
+	.pageMaker_btn a:active {color: black;}
+	.pageMaker_btn a:hover {color: black;}
+	.next a, .prev a {
+	    color: #ccc;
+	}
+	.col-form1 {
+    font-size: 2.2rem;
+    font-weight:10;
+	}
+	.col-form2 {
+    font-size: 5rem;
+    font-weight:10;
+	}
+	.btn-group1, .btn-group-vertical {
+    position: relative;
+    vertical-align: bottom
+   }
