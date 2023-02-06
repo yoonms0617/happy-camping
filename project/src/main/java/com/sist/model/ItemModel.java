@@ -65,8 +65,6 @@ public class ItemModel {
         if (searchType == null) {
             searchType = "all";
         }
-        
-        
         int curpage=Integer.parseInt(page);
         ItemDAO dao=new ItemDAO();
         List<ItemVO> list=dao.itemsearchData(curpage, ss);
@@ -87,9 +85,8 @@ public class ItemModel {
         request.setAttribute("totalpage", totalpage);
         request.setAttribute("itemtotal", itemtotal);
         request.setAttribute("startPage", startPage);
-        request.setAttribute("endPage", endPage);
-        
-    	return "/happy/search/search.jsp"; // 아이템 관련 파일 추가시 변경 예정
+        request.setAttribute("endPage", endPage);      
+      	return "/happy/search/search.jsp"; // 아이템 관련 파일 추가시 변경 예정
     }
     // 서치후 디테일
     @RequestMapping("search/detail.do")
