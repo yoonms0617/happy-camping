@@ -14,18 +14,18 @@
                   <input type="hidden" id="loginMid" value="${sessionScope.mid}">
                <li class="nav-item me-3">
                <li class="nav-item" >
-                 <a href="/member/update.do" class="text-decoration-none"style="font-size:18">My Page</a>
+                 <a href="/member/mypage.do" class="text-decoration-none me-3 fs-5">My Page</a>
                </li>
                <li>
-                   <a href="/member/logout.do" class="text-decoration-none"style="font-size:18">로그아웃</a>
+                   <a href="/member/logout.do" class="text-decoration-none fs-5">로그아웃</a>
                 </li>
             </c:if>
              <c:if test="${sessionScope.mid==null }">
                 <li class="nav-item me-3">
-                    <a href="/member/login1.do" class="text-decoration-none" style="font-size:18">로그인</a>
+                    <a href="/member/login1.do" class="text-decoration-none fs-5">로그인</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/member/signup.do" class="text-decoration-none"style="font-size:18">회원가입</a>
+                    <a href="/member/signup.do" class="text-decoration-none fs-5">회원가입</a>
                 </li>
            </c:if>
             </ul>
