@@ -57,7 +57,7 @@
                        href="/notice/list.do?page=${page.curPage - 10}">&laquo;</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link <c:if test="${page.first}">disabled invisible</c:if>"
+                    <a class="page-link <c:if test="${!page.hasPrev}">disabled invisible</c:if>"
                        href="/notice/list.do?page=${page.curPage - 1}">◀︎</a>
                 </li>
                 <c:forEach var="pageNumber" begin="${page.startPage}" end="${page.endPage}">
@@ -67,7 +67,7 @@
                     </li>
                 </c:forEach>
                 <li class="page-item">
-                    <a class="page-link <c:if test="${page.last}">disabled invisible</c:if>"
+                    <a class="page-link <c:if test="${!page.hasNext}">disabled invisible</c:if>"
                        href="/notice/list.do?page=${page.curPage + 1}">▶︎</a>
                 </li>
                 <li class="page-item">
