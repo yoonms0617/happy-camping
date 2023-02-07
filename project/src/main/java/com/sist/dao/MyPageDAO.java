@@ -144,7 +144,7 @@ public class MyPageDAO {
                 String image = rs.getString(5);
                 itemVO.setImage(image.substring(0, image.indexOf(",")));
                 itemVO.setName(rs.getString(6));
-                itemReviewVO.setUPDATED(rs.getDate(7));
+                itemReviewVO.setUpdated(rs.getDate(7));
                 itemReviewVO.setItemVO(itemVO);
                 items.add(itemReviewVO);
             }

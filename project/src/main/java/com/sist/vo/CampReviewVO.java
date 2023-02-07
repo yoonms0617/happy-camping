@@ -21,4 +21,6 @@ public class CampReviewVO {
 
     private int cno;
 
+    private CampVO campVO;
+
 }
