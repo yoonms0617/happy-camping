@@ -59,7 +59,7 @@ public class NoticeDAO {
         } finally {
             dbConn.closeConnection(ps, conn);
         }
-        return new Pagination(items, curPage, totalNoticeCnt);
+        return new Pagination(items, curPage, totalNoticeCnt, 10);
     }
 
     public void noticeWrite(String title, String content) {

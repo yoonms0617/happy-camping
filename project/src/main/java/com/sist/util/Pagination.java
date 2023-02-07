@@ -27,11 +27,11 @@ public class Pagination {
 
     private boolean hasNext = true;
 
-    public Pagination(List<?> items, int curPage, int totalItemCnt) {
+    public Pagination(List<?> items, int curPage, int totalItemCnt, int row) {
         this.items = items;
         this.curPage = curPage;
         this.totalItemCnt = totalItemCnt;
-        setTotalPage(totalItemCnt);
+        setTotalPage(totalItemCnt, row);
         makeBlock(curPage);
         setFirst();
         setLast();
@@ -49,9 +49,14 @@ public class Pagination {
         }
     }
 
-    private void setTotalPage(int totalItemCnt) {
-        int rowSize = 10;   // 페이지당 보여줄 개수
-        this.totalPage = (int) Math.ceil(totalItemCnt / rowSize) + 1;
+    private void setTotalPage(int totalItemCnt, int row) {
+        // 페이지당 보여줄 개수
+        if (totalItemCnt % row == 0) {
+            this.totalPage = totalItemCnt / row;
+        } else {
+            this.totalPage = (totalItemCnt / row) + 1;
+        }
+        System.out.println("this.totalPage = " + this.totalPage);
     }
 
     private void setFirst() {
