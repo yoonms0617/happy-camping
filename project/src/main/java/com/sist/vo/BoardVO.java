@@ -19,4 +19,7 @@ public class BoardVO {
 
     private Date regDate;
 
+    private int hit;
+    
+    private String mid;
 }
