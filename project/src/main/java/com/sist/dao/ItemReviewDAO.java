@@ -57,7 +57,7 @@ public class ItemReviewDAO {
 		}finally {
 			dbConn.closeConnection(ps, conn);
 		}
-    	return new Pagination(list, curPage, totalPage);
+    	return new Pagination(list, curPage, totalPage, 10);
     }
 
     private int getTotalPage(int ino, int rowSize) {
