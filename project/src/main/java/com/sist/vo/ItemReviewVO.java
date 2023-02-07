@@ -15,10 +15,20 @@ public class ItemReviewVO {
 
     private String content;
 
-    private Date createdAt;
+    private Date created;
 
-    private Date updatedAt;
+    private String mid;
 
     private int hit;
+
+    private String pwd;
+
+    private String subject;
+
+    private String dbday;
+
+    private int num;
+
+    private int ino;
 
 }

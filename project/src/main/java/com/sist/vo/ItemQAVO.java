@@ -25,4 +25,8 @@ public class ItemQAVO {
 
     private int hit;
 
+    private String mid;
+
+    private Date dbday;
+
 }
