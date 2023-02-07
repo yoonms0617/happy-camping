@@ -51,7 +51,7 @@ function drawPageButton(result) {
     var start = result.startPage;
     var end = result.endPage;
     var curPage = result.curPage;
-    for (var i = start; i < end; i++) {
+    for (var i = start; i <= end; i++) {
         html = html + '<li class="page-item'
         if (i === curPage) {
             html = html + ' active">'
