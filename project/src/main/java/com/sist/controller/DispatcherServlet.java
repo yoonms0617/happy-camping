@@ -54,8 +54,8 @@ public class DispatcherServlet extends HttpServlet {
         String requestURI = request.getRequestURI().substring(request.getContextPath().length() + 1);
         try {
             for (String model : models) {
-                Class<?> clazz = Class.forName(model);
-                if (!clazz.isAnnotationPresent(Controller.class)) {
+                Class clazz = Class.forName(model);
+                if (clazz.isAnnotationPresent(Controller.class) == false) {
                     continue;
                 }
                 Object object = clazz.getDeclaredConstructor().newInstance();
@@ -67,7 +67,7 @@ public class DispatcherServlet extends HttpServlet {
                         if (view == null) {
                             return;
                         }
-                        if (view.startsWith("redirect:")) {
+                        else if (view.startsWith("redirect:")) {
                             response.sendRedirect(view.substring(view.indexOf(":") + 1));
                         } else {
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher(view);
