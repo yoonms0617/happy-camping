@@ -13,7 +13,7 @@
                     <input type="hidden" id="loginMid" value="${sessionScope.mid}">
                     <li class="nav-item me-3">
                     <li class="nav-item">
-                        <a href="/member/mypage.do" class="text-decoration-none me-3 fs-5">My Page</a>
+                        <a href="/mypage.do" class="text-decoration-none me-3 fs-5">My Page</a>
                     </li>
                     <li class="nav-item">
                         <a href="/cart/cart.do" class="text-decoration-none me-3 fs-5">장바구니</a>
