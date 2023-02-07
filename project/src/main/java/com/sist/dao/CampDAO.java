@@ -115,7 +115,7 @@ public class CampDAO {
         } finally {
             dbconn.closeConnection(ps, conn);
         }
-        return new Pagination(campList, curPage, totalCmp);
+        return new Pagination(campList, curPage, totalCmp, 10);
     }
 
     public CampVO campDetail(int cno) {

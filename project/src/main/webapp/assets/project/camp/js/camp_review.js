@@ -51,8 +51,7 @@ function drawPageButton(result) {
     var start = result.startPage;
     var end = result.endPage;
     var curPage = result.curPage;
-    html
-    for (var i = start; i <= end; i++) {
+    for (var i = start; i < end; i++) {
         html = html + '<li class="page-item'
         if (i === curPage) {
             html = html + ' active">'
@@ -62,7 +61,6 @@ function drawPageButton(result) {
         html = html + '<a class="page-link" id="page-btn-' + i + '" role="button" data-value="' + i + '" onclick="showCampReviewList(' + i + ')">' + i + '</a>'
         html = html + '</li>'
     }
-    html
     $('#page-buttons').append(html);
 }
 
@@ -87,7 +85,7 @@ function writeReview(mid) {
         },
         success: function (result) {
             $('#review-form').val('');
-            reloadReviewList();
+            showCampReviewList(1);
         }
     });
 }
@@ -161,8 +159,4 @@ function resize(obj) {
 function getCno() {
     let params = new URLSearchParams(location.search);
     return params.get('cno');
-}
-
-function reloadReviewList() {
-    $('#review-list').load(location.href + '#review-list');
 }

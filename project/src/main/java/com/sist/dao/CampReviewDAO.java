@@ -32,14 +32,19 @@ public class CampReviewDAO {
         int rowSize = 5;
         int start = (rowSize * curPage) - (rowSize - 1);
         int end = rowSize * curPage;
-        int totalPage = getTotalPage(cno, rowSize);
+        int totalPage = 0;
         try {
             conn = dbConn.createConnection();
+            ps = conn.prepareStatement("SELECT COUNT(*) FROM HC_CAMP_REVIEW_2 WHERE cno = ?");
+            ps.setInt(1, cno);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            totalPage = rs.getInt(1);
             ps = conn.prepareStatement(sql);
             ps.setInt(1, cno);
             ps.setInt(2, start);
             ps.setInt(3, end);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 CampReviewVO vo = new CampReviewVO();
                 vo.setClno(rs.getInt(1));
@@ -56,31 +61,7 @@ public class CampReviewDAO {
         } finally {
             dbConn.closeConnection(ps, conn);
         }
-        return new Pagination(reviews, curPage, totalPage);
-    }
-
-    private int getTotalPage(int cno, int rowSize) {
-        String sql = "SELECT COUNT(*) FROM HC_CAMP_REVIEW_2 WHERE cno = ?";
-        int totalPage = 0;
-        try {
-            conn = dbConn.createConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setInt(1, cno);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            totalPage = rs.getInt(1);
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            dbConn.closeConnection(ps, conn);
-        }
-        if (totalPage % rowSize != 0) {
-            totalPage = totalPage / rowSize + 1;
-        } else {
-            totalPage = totalPage / rowSize;
-        }
-        return totalPage;
+        return new Pagination(reviews, curPage, totalPage, 5);
     }
 
     public void writeCampReview(String mid, String content, int cno) {
