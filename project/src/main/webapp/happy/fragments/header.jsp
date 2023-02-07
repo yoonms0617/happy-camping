@@ -30,7 +30,7 @@
             </ul>
         </div>
     </div>
-    <div class="container">
+ <div class="container">
         <div class="mt-4 mb-4">
             <div class="d-flex flex-nowrap align-items-center">
                 <div class="col-4 text-start">
@@ -38,18 +38,11 @@
                         <img src="\happy\fragments\hclogo.png" class="img-thumbnail border-0" style="width:350px">
                     </a>
                 </div>
-                <form action="../search/list.do" method="get">
-                    <input type="hidden" value="${orderType}" name="orderType">
+                <form action="../search/list.do" method="post">
                     <div class="d-flex justify-content-start mt-5">
-                        <div class="me-2" style="width: 200px;">
-                            <select class="form-select" id="search-type" name="searchType">
-                                <option value="all" <c:if test="${searchType == 'all'}">selected</c:if>>통합검색</option>
-                                <option value="item" <c:if test="${searchType == 'item'}">selected</c:if>>상품</option>
-                            </select>
-                        </div>
-                        <div class="input-group" style="max-width: 400px;">
-                            <input type="text" class="form-control" id="search-key" name="searchKeyword"
-                                   value="${searchKeyword}">
+                        <div class="input-group" style="width:450px;">
+                            <input type="text" class="form-control" id="ss" name="ss"
+                                   value="${ss}">
                             <button class="btn btn-outline-success" type="submit" id="search-btn" style="width: 80px;">
                                 검색
                             </button>
@@ -59,5 +52,5 @@
             </div>
         </div>
     </div>
-    <%@include file="navigation.jsp" %>
+ <%@include file="navigation.jsp" %>
 </header>

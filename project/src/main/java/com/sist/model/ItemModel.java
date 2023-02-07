@@ -236,10 +236,7 @@ public class ItemModel {
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
-		String searchType = request.getParameter("searchType");
-		if (searchType == null) {
-			searchType = "all";
-		}
+		
 		int curpage=Integer.parseInt(page);
 		ItemDAO dao=new ItemDAO();
 		List<ItemVO> list=dao.itemsearchData(curpage, ss);
@@ -253,7 +250,6 @@ public class ItemModel {
 		if(endPage>totalpage)
 			endPage=totalpage;
 
-		request.setAttribute("searchType", searchType);
 		request.setAttribute("ss", ss);
 		request.setAttribute("list", list);
 		request.setAttribute("curpage", curpage);
@@ -274,7 +270,7 @@ public class ItemModel {
 
 		request.setAttribute("descript", descript);
 		request.setAttribute("vo", vo);
-		return "/happy/search/search_detail.jsp";
+		return "/happy/item/item_detail.jsp";
 	}
 
 }

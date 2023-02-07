@@ -292,21 +292,26 @@ public class ItemDAO {
     	}
     	return list;
     }
- // 검색후 아이템 수
+ // 검색후 아이템 수(수정)
     public int itemsearchTotal(String ss)
     {
     	int total=0;
  	   	try
  	    {
  		   conn=dbConn.createConnection();
- 		   String sql="SELECT CEIL(COUNT(*)) FROM HC_ITEM_2 "
+ 		   String sql="SELECT COUNT(*) FROM HC_ITEM_2 "
  				     +"WHERE name LIKE '%'||?||'%'";
  		   ps=conn.prepareStatement(sql);
  		   ps.setString(1, ss);
  		   ResultSet rs=ps.executeQuery();
  		   rs.next();
  		   total=rs.getInt(1);
+ 		   if(ss.equals(""))
+ 		   {
+ 			   total=0;
+ 		   }
  		   rs.close();
+ 		   System.out.println("total(dao)"+total);
  	   }catch(Exception ex)
  	   {
  		   ex.printStackTrace();
