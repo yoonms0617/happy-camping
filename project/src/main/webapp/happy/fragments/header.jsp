@@ -15,6 +15,9 @@
                     <li class="nav-item">
                         <a href="/member/mypage.do" class="text-decoration-none me-3 fs-5">My Page</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/cart/cart.do" class="text-decoration-none me-3 fs-5">장바구니</a>
+                    </li>
                     <li>
                         <a href="/member/logout.do" class="text-decoration-none fs-5">로그아웃</a>
                     </li>

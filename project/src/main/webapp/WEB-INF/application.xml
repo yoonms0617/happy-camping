@@ -7,4 +7,5 @@
     <bean class="com.sist.model.NoticeModel"/>
     <bean class="com.sist.model.BoardModel"/>
     <bean class="com.sist.model.MyPageModel"/>
+    <bean class="com.sist.model.CartModel"/>
 </beans>
