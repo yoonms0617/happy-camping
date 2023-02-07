@@ -63,13 +63,14 @@ public class BoardDAO {
     }
 
     public void boardWrite(String title, String content, String writer) {
-        String boardWriteSQL = "INSERT INTO HC_BOARD_2 (bno, title, content, writer) VALUES (HC_BOARD_SEQ.NEXTVAL, ?, ?, ?)";
+        String boardWriteSQL = "INSERT INTO HC_BOARD_2 (bno, title, content, writer, mid) VALUES (HC_BOARD_SEQ.NEXTVAL, ?, ?, ?, ?)";
         try {
             conn = dbConn.createConnection();
             ps = conn.prepareStatement(boardWriteSQL);
             ps.setString(1, title);
             ps.setString(2, content);
             ps.setString(3, writer);
+            ps.setString(4, writer);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
