@@ -45,9 +45,24 @@
 	        </tr>
 	      </c:when>
 	      <c:otherwise>
+	      <c:forEach var="vo" items="${list}">
 	        <tr>
 	          <!-- 장바구니에 담긴 상품 -->
+	          <td><!-- checkbox --></td>
+	      	  <td>
+	      	    <img src="${vo.image}" style="width:30px;height: 30px">
+	      	  </td>
+	      	  <td>${vo.name}</td>
+	      	  <td>${vo.quantity}</td>
+	      	  <td>${vo.price!=null?vo.price:"-"}</td>
+	      	  <td>${vo.ivo.sale}</td>
+	      	  <td>${vo.price*vo.quantity>=50000?"무료":3000}</td>
+	      	  <td>
+	      	    <span class="btn btn-xs orderBtn">구매</span>
+	            <a href="/cart/cart_cancel.do?cno=${vo.cno}" class="btn btn-xs btn-warning">삭제</a>
+	      	  </td>
 	        </tr>
+	      </c:forEach>
 	      </c:otherwise>
 	    </c:choose>
 	    <tr>
