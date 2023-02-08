@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
-<%@include file="/happy/fragments/head.jsp" %>    
-<%@include file="/happy/fragments/header.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false" /> 
+<jsp:include page="/happy/fragments/header.jsp" flush="false" /> 
 <!doctype html>
 <html>
    
@@ -115,13 +115,13 @@
 	        <div class="col" style= "padding:4px">
 	          <div class="card shadow-sm" >
 	           
-				 <a href="/item/item_detail.do?ino=${vo.ino }"> <img src="${vo.image }" title="${vo.name }" class="bd-placeholder-img card-img-top" width="100%"
+				 <a href="/item/item_detail.do?ino=${vo.ino}"> <img src="${vo.image }" title="${vo.name }" class="bd-placeholder-img card-img-top" width="100%"
 					height="300"  focusable="false"/></a>  
 					<title>${vo.name }</title>
 					
 					
 				<div class="card-body" style="width=100%; height=300px" >
-	              <a href="/item/item_detail.do?ino=${vo.ino }" style="text-decoration:none; color: #555555; font-size: 15px" ><p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${vo.name }</p></a>
+	              <a href="/item/item_detail.do?ino=${vo.ino}" style="text-decoration:none; color: #555555; font-size: 15px" ><p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${vo.name }</p></a>
 	              <div class="d-flex justify-content-between align-items-center" style="font-size: 14px">
 	              	<fmt:formatNumber value="${vo.price}" pattern="#,###"  />원
 	                <div class="btn-group">
@@ -215,13 +215,7 @@
 <!--   <div class="clear"></div> -->
 
 
-
-
-
-
-    
-
-  <%@include file="/happy/fragments/footer.jsp" %>
-  <%@include file="/happy/fragments/common-script.jsp" %>      
+  <jsp:include page="/happy/fragments/footer.jsp" flush="false" /> 
+  <jsp:include page="/happy/fragments/common-script.jsp" flush="false" /> 
   </body>
 </html>
