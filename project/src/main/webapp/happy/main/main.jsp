@@ -212,10 +212,34 @@
         </div>
     </div>
 </div>
+
+<!-- 메인페이지 : 퀵메뉴바 관련 기능 -->
+<div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
+   <div class="border">
+    <button type="button" class="btn btn-sm btn-dark start" style="width:70px;"onclick="window.scrollTo(0,0)" >△</button>
+   </div>
+   <div class="border bg-light"style="height:330px">
+   <c:forEach var="ivo" items="${iList }" varStatus="s">
+   <div  colspan="2" style="cursor:pointer;">
+      
+         <c:if test="${s.index<3 }">  
+           
+            <a href="/item/item_detail.do?ino=${ivo.ino }">
+            <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+            </c:if>
+             <div style="height:10px"></div> 
+            </div>
+	 </c:forEach>
+   </div>
+   <div class="">
+    <button type="button" class="btn btn-sm btn-dark" onclick="window.scrollTo(10000,10000)" style="width:70px" >▽</button>
+   </div>
+</div>
 <jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
 <jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <!-- slider js -->
 <script rel="script" src="/assets/slick/js/slick.min.js"></script>
 <script rel="script" src="/assets/project/main/js/slider.js"></script>
+<script rel="script" src="/assets/project/main/js/main.js"></script>
 </body>
 </html>
