@@ -311,7 +311,6 @@ public class ItemDAO {
  			   total=0;
  		   }
  		   rs.close();
- 		   System.out.println("total(dao)"+total);
  	   }catch(Exception ex)
  	   {
  		   ex.printStackTrace();

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -76,35 +77,10 @@ public class ItemModel {
 		request.setAttribute("vo", vo);
 		System.out.println("itemqna들어옴");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		String page = request.getParameter("page");
 		if (page == null)
 			page = "1";
 		int curpage = Integer.parseInt(page);
-
-
-
-
-
-
-
-
 
 		ItemQnaDAO idao = new ItemQnaDAO();
 		List<ItemQAVO> qalist = idao.itemQnaList(curpage);
@@ -115,8 +91,8 @@ public class ItemModel {
 		int endPage = startPage + (BLOCK - 1);
 		if (endPage > totalpage)
 			endPage = totalpage;
-		//String ino=request.getParameter("ino");
-		System.out.println("ino="+ino);
+		
+		
 		request.setAttribute("ino", ino);
 		request.setAttribute("qalist", qalist);
 		request.setAttribute("curpage", curpage);
@@ -318,5 +294,22 @@ public class ItemModel {
 		request.setAttribute("vo", vo);
 		return "/happy/item/item_detail.jsp";
 	}
+	// 최근 본 상품 출력하는 부분 (메인페이지 퀵메뉴)
+	@RequestMapping("item/item_before_detail.do")
+	public String itemDetail(HttpServletRequest request, HttpServletResponse response) 
+	{
+		HttpSession session=request.getSession();
+		String mid=(String)session.getAttribute("mid");
+		String user="";
+	    String ino=request.getParameter("ino");
+		try
+		{
+		    Cookie cookie =new Cookie("item"+ino, ino);
+		    cookie.setPath("/");
+		    cookie.setMaxAge(60*60*24);
+		    response.addCookie(cookie);
+		}catch (Exception e) {}
+		return "redirect:../item/item_detail.do?ino="+ino;
+	}	
 
 }
