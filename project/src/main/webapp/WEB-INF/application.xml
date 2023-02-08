@@ -8,4 +8,6 @@
     <bean class="com.sist.model.BoardModel"/>
     <bean class="com.sist.model.MyPageModel"/>
     <bean class="com.sist.model.CartModel"/>
+    <bean class="com.sist.model.CampLikeModel"/>
+    <bean class="com.sist.model.ItemLikeModel"/>
 </beans>
