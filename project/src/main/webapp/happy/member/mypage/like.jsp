@@ -90,14 +90,6 @@
                             <!-- 캠핑장 좋아요 목록나오는 곳 -->
                             <!-- -->
                         </div>
-                        <hr>
-                        <div>
-                            <div class="d-flex justify-content-start align-items-center">
-                                <input class="form-check-input me-2" type="checkbox" id="select-all">
-                                <label class="form-check-label me-3" for="select-all">전체선택</label>
-                                <button type="button" class="btn btn-sm btn-outline-primary">선택삭제</button>
-                            </div>
-                        </div>
                         <div class="mt-3 mb-2">
                             <nav class="d-flex justify-content-center">
                                 <ul class="pagination pagination-sm" id="camp-page-buttons">
