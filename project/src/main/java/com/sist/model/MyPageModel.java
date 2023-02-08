@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
+import com.sist.dao.CampLikeDAO;
+import com.sist.dao.ItemLikeDAO;
 import com.sist.dao.MyPageDAO;
 import com.sist.util.Pagination;
 import com.sist.vo.MemberVO;
@@ -16,7 +18,15 @@ import com.sist.vo.MemberVO;
 @Controller
 public class MyPageModel {
 
-    private final MyPageDAO myPageDAO = new MyPageDAO();
+    private final MyPageDAO myPageDAO;
+    private final CampLikeDAO campLikeDAO;
+    private final ItemLikeDAO itemLikeDAO;
+
+    public MyPageModel() {
+        this.myPageDAO = new MyPageDAO();
+        this.campLikeDAO = new CampLikeDAO();
+        this.itemLikeDAO = new ItemLikeDAO();
+    }
 
     @RequestMapping(value = "mypage.do")
     public String myPageHome(HttpServletRequest request, HttpServletResponse response) {
@@ -88,12 +98,30 @@ public class MyPageModel {
     public void campLikeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        String mid = (String) request.getSession().getAttribute("mid");
+        String page = request.getParameter("page");
+        if (page == null) {
+            page = "1";
+        }
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+        Pagination likeList = campLikeDAO.campLikeList(mid, Integer.parseInt(page));
+        String json = gson.toJson(likeList);
+        response.getWriter().write(json);
     }
 
     @RequestMapping(value = "itemLikeList.do")
     public void itemLikeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        String mid = (String) request.getSession().getAttribute("mid");
+        String page = request.getParameter("page");
+        if (page == null) {
+            page = "1";
+        }
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+        Pagination likeList = itemLikeDAO.itemLikeList(mid, Integer.parseInt(page));
+        String json = gson.toJson(likeList);
+        response.getWriter().write(json);
     }
 
     @RequestMapping(value = "boardList.do")
