@@ -124,11 +124,6 @@
 	              <a href="/item/item_detail.do?ino=${vo.ino}" style="text-decoration:none; color: #555555; font-size: 15px" ><p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${vo.name }</p></a>
 	              <div class="d-flex justify-content-between align-items-center" style="font-size: 14px">
 	              	<fmt:formatNumber value="${vo.price}" pattern="#,###"  />원
-	                <div class="btn-group">
-	                  <button type="button" class="btn btn-sm btn-outline-secondary">찜하기</button>
-	                  
-	                </div> 
-	                
 	              </div>
 	            </div>
 	          </div>
