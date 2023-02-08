@@ -58,7 +58,6 @@
                     </div>
                     <div class="btn-group1 ml-sm-3 ps-5" style="display:inline">
 	                   <a href="장바구니 경로 이동"><img src="/assets/images/main/search/shopping-cart.png"width="30"name="cart"></img></a>&nbsp;
-	                   <button type="button"style="height:50px ;width:55px "class="btn btn-sm btn-outline-secondary">찜하기</button>
 	                 <div style="height:5px"></div>
 	                </div>
 	                </c:if>

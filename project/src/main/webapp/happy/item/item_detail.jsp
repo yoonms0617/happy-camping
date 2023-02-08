@@ -34,7 +34,7 @@ $( function() {
     <div style="height: 50px"></div>
       <table>
           <tr>
-            <font size="6"><p>${vo.name }</p></font>
+            <p class="fs-4">${vo.name }</p>
           </tr>
           <c:if test="${vo.sale!=0 }">
           <tr>
@@ -87,9 +87,17 @@ $( function() {
           <tr style="height:30px"></tr>
           <tr>
             <th colspan="3">
-            <button type="button"style="height:50px ;width:160px;"class="btn btn-sm btn-dark">구매하기</button>
-            <button type="button"style="height:50px;width:160px; " class="btn btn-sm btn-outline-secondary">장바구니</button>
-            <button type="button"style="height:50px;width:160px; " class="btn btn-sm btn-outline-secondary">관심상품</button>
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <button type="button"style="height:50px ;width:160px;" class="btn btn-sm btn-dark me-1">구매하기</button>
+                    </div>
+                    <div>
+                        <button type="button"style="height:50px;width:160px;" class="btn btn-sm btn-outline-secondary me-1">장바구니</button>
+                    </div>
+                    <div id="like-btn">
+<%--                        <button type="button"style="height:50px;width:160px;" class="btn btn-sm btn-outline-secondary">좋아요</button>--%>
+                    </div>
+                </div>
             </th>
           </tr>
       </table>
@@ -237,7 +245,7 @@ $( function() {
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> <!--------------------3 -->
   
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> <!-------------------- 4-->
-
+<script rel="script" src="/assets/project/item/js/item_like.js"></script>
 
 </body>
 </html>
