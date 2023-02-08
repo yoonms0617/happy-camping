@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="/happy/fragments/head.jsp" %>
-<%@include file="/happy/fragments/header.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/header.jsp" flush="false"/>
 <body>
 <div class="container">
     <div class="mt-5">
@@ -12,7 +12,7 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md">
-                <img src="${camp.image}" style="width: 100%; height: 400px;">
+                <img src="${camp.image}" style="width: 100%; height: 470px;">
             </div>
             <div class="col-md">
                 <div class="card-body">
@@ -54,6 +54,10 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="mt-2 d-flex justify-content-center">
+                        <div id="like-btn">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,10 +97,13 @@
                 <div class="mt-3">
                     <div class="form-floating">
                         <textarea id="review-form" onkeydown="resize(this)" class="form-control"
-                                  onkeyup="resize(this)" style="width: 100%; min-height: 5rem; overflow-y: hidden; resize: none;"></textarea>
+                                  onkeyup="resize(this)"
+                                  style="width: 100%; min-height: 5rem; overflow-y: hidden; resize: none;"></textarea>
                         <label for="review-form">댓글을 남겨보세요</label>
                         <div class="mt-1 d-flex justify-content-end">
-                            <button class="btn btn-sm btn-primary" id="review-write" onclick="writeReview('${sessionScope.mid}')">등록</button>
+                            <button class="btn btn-sm btn-primary" id="review-write"
+                                    onclick="writeReview('${sessionScope.mid}')">등록
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -104,10 +111,12 @@
         </div>
     </div>
 </div>
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>
-<script rel="script" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a610b7237df91c7b85cb6a328aacca2e&libraries=services"></script>
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
+<script rel="script"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a610b7237df91c7b85cb6a328aacca2e&libraries=services"></script>
 <script rel="script" src="/assets/project/camp/js/camp_location.js"></script>
 <script rel="script" src="/assets/project/camp/js/camp_review.js"></script>
+<script rel="script" src="/assets/project/camp/js/camp_like.js"></script>
 </body>
 </html>

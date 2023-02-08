@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="/happy/fragments/head.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
 <!-- slider css -->
 <link rel="stylesheet" href="/assets/slick/css/slick.css">
 <link rel="stylesheet" href="/assets/slick/css/slick-theme.css">
 <body>
-<%@include file="/happy/fragments/header.jsp" %>
+<jsp:include page="/happy/fragments/header.jsp" flush="false"/>
 <div class="container">
     <!-- main slider -->
     <div class="main-slider">
@@ -212,8 +212,8 @@
         </div>
     </div>
 </div>
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <!-- slider js -->
 <script rel="script" src="/assets/slick/js/slick.min.js"></script>
 <script rel="script" src="/assets/project/main/js/slider.js"></script>

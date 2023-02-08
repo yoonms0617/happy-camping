@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="/happy/fragments/head.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
 <!--  uncaught referenceerror $ is not defined 오류로 인한 추가 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <!-- tabs관련 -->
@@ -76,8 +76,8 @@
 </div>
 
 
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <!-- tabs관련 -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>

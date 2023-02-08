@@ -84,9 +84,19 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                        <div id="camp-review-list">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                         tabindex="0">
+                        <div id="camp-like-list">
                             <!-- 캠핑장 좋아요 목록나오는 곳 -->
+                            <!-- -->
+                        </div>
+                        <hr>
+                        <div>
+                            <div class="d-flex justify-content-start align-items-center">
+                                <input class="form-check-input me-2" type="checkbox" id="select-all">
+                                <label class="form-check-label me-3" for="select-all">전체선택</label>
+                                <button type="button" class="btn btn-sm btn-outline-primary">선택삭제</button>
+                            </div>
                         </div>
                         <div class="mt-3 mb-2">
                             <nav class="d-flex justify-content-center">
@@ -96,8 +106,9 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                        <div id="item-review-list">
+                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                         tabindex="0">
+                        <div id="item-like-list">
                             <!-- 아이템 좋아요 목록나오는 곳 -->
                         </div>
                         <div class="mt-3 mb-2">
@@ -115,6 +126,6 @@
 </div>
 <%@include file="/happy/fragments/footer.jsp" %>
 <%@include file="/happy/fragments/common-script.jsp" %>
-<script src="/assets/project/member/js/mypage-like.js"></script>
+<script rel="script" src="/assets/project/member/js/mypage-like.js"></script>
 </body>
 </html>

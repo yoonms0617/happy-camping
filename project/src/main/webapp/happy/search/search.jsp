@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>     
-<%@include file="/happy/fragments/head.jsp" %>    
-<%@include file="/happy/fragments/header.jsp" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/header.jsp" flush="false"/>
 <link rel="stylesheet" href="/assets/project/search/css/search.css"/>
 <body>
 
@@ -104,8 +104,7 @@
 </div>
 
 <div class="clear"></div>
-
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>   
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
   </body>
 </html>

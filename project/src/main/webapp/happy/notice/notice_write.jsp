@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="/happy/fragments/head.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css"/>
 <body>
-<%@include file="/happy/fragments/header.jsp" %>
+<jsp:include page="/happy/fragments/header.jsp" flush="false"/>
 <div class="container">
     <div class="mt-4">
         <form>
@@ -26,8 +26,8 @@
         </form>
     </div>
 </div>
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="https://uicdn.toast.com/editor/latest/i18n/ko-kr.min.js"></script>
 <script>

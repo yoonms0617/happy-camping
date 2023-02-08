@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@include file="/happy/fragments/head.jsp" %>
+<jsp:include page="/happy/fragments/head.jsp" flush="false"/>
 <style>
     #notice-content p {
         margin: 0;
     }
 </style>
 <body>
-<%@include file="/happy/fragments/header.jsp" %>
+<jsp:include page="/happy/fragments/header.jsp" flush="false"/>
 <div class="container">
     <div class="mt-5">
         <div class="mb-3">
@@ -55,8 +55,8 @@
         </div>
     </div>
 </div>
-<%@include file="/happy/fragments/footer.jsp" %>
-<%@include file="/happy/fragments/common-script.jsp" %>
+<jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
+<jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <script>
     $(function () {
         $('#notice-delete-btn').click(function () {
