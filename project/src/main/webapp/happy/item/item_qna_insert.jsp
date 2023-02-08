@@ -11,7 +11,7 @@
   <main class="container clear"> 
     <h2 class="sectiontitle">문의</h2>
 	<div style="height: 5px"></div>
-	<form method="post" action="/item/item_qna_insert_ok.do">
+	<form id="qnaFrm">
 	<table class="table">
 <!-- 	  <tr>
 	    <th width=15% class="text-right">제목</th>
@@ -24,7 +24,8 @@
 	  <tr>
 	    <th width=15% class="text-right">제목</th>
 	    <td width=80%>
-	    	<input type=text name=subject size=60 class="input-sm">
+	    	<input type=text name=title size=60 class="input-sm">
+	    	<input type= hidden name=ino value=${ino }>
 	    </td>
 	  </tr>
 	  
@@ -44,13 +45,13 @@
 	  
 	  <tr>
 	    <td colspan="2" class="text-center">
-	      <input type=submit value="글쓰기" class="btn btn-sm btn-danger">
-	      <input type=button value="취소" class="btn btn-sm btn-danger" onclick = "javascript:history.back()">
+	      <input type=button value="글쓰기" class="btn btn-sm btn-danger" onclick="qnaInsertOk()">
+	      <input type=button value="취소" class="btn btn-sm btn-danger" onclick = "qnaList(${ino})">
 	    </td>
 	  </tr>
 	
 	</table>
-	</form>
+	
   </main>
  </div>
 </body>

@@ -1,18 +1,17 @@
 package com.sist.model;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.MyPageDAO;
 import com.sist.util.Pagination;
 import com.sist.vo.MemberVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
 
 @Controller
 public class MyPageModel {

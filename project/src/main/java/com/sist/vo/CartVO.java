@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartVO {
-	
+
 	private int cno;
 	private int price;
 	private int quantity;

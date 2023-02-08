@@ -211,7 +211,7 @@ public class ItemDAO {
         String[] image = images.split(",");
         return image[0];
     }
- 
+
   //캠핑용품 디테일// // 서치후 디테일
   	public ItemVO itemDetailData(int ino) {
   		ItemVO vo = new ItemVO();
@@ -245,13 +245,13 @@ public class ItemDAO {
   		}
   		return vo;
   	}
-    
-    
-    
+
+
+
  // 검색후 아이템 출력
     public List<ItemVO> itemsearchData(int page, String ss)
     {
-    	List<ItemVO> list=new ArrayList<ItemVO>();
+    	List<ItemVO> list=new ArrayList<>();
     	try
     	{
     		conn=dbConn.createConnection();
@@ -347,7 +347,7 @@ public class ItemDAO {
  	   }
  	   return total;
     }
-    
+
  // 아이템 리뷰 리스트 //
    	public List<ItemReviewVO> itemReviewList(int page){
    		List<ItemReviewVO> list = new ArrayList<>();
@@ -483,5 +483,5 @@ public class ItemDAO {
        	dbConn.closeConnection(ps, conn);
         }
      }
- 
+
 }

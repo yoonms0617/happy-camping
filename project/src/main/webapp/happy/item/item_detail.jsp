@@ -1,20 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%><!-------------------- 1 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--------------------  2-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  <!-------------------- 3 -->  
-
- <!--  <link rel="stylesheet" href="assets/project/item/vendors/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/project/item/vendors/fontawesome/css/all.min.css">
-	<link rel="stylesheet" href="assets/project/item/vendors/themify-icons/themify-icons.css">
-	<link rel="stylesheet" href="assets/project/item/vendors/linericon/style.css">
-  <link rel="stylesheet" href="assets/project/item/vendors/nice-select/nice-select.css">
-  <link rel="stylesheet" href="assets/project/item/vendors/owl-carousel/owl.theme.default.min.css">
-  <link rel="stylesheet" href="assets/project/item/vendors/owl-carousel/owl.carousel.min.css">
-  <link rel="stylesheet" href="assets/project/item/css/style.css">
- -->
- 
-<%@include file="/happy/fragments/head.jsp" %>    <!--------------------4  -->
-<%@include file="/happy/fragments/header.jsp" %> <!-------------------- 5 -->
-
+<jsp:include page="/happy/fragments/head.jsp" flush="false" /> <!--------------------4  -->
+<jsp:include page="/happy/fragments/header.jsp" flush="false" />  <!-------------------- 5 -->
 
 
 
@@ -117,7 +105,7 @@ $( function() {
 					<li><a href="#tabs-1" style="height:50px ;width:160px;">상품 상세 정보</a></li>
 			        <li><a href="#tabs-2">상품 구매 안내</a></li> 
 			        <li><a href="#tabs-3">상품 사용 후기</a></li> 
-			        <li><a href="#tabs-4">상품 Q&A (count내용 추가할 예정)</a></li>
+			        <li><a href="#tabs-4">상품 Q&A</a></li>
 				</ul>
 				<!------ 상품 상세정보 ------>
 				<div id="tabs-1">
@@ -192,6 +180,7 @@ $( function() {
 				<!--------------------------------------- 상품 사용후기------------------------------------------->
 		<div id="tabs-3" >
 		<div class="mt-3">
+			<div id="review-list"></div>
                     <div class="form-floating">
                         <textarea id="review-form" onkeydown="resize(this)" class="form-control"
                                   onkeyup="resize(this)" style="width: 100%; min-height: 5rem; overflow-y: hidden; resize: none;"></textarea>
@@ -201,56 +190,12 @@ $( function() {
                         </div>
                     </div>
                 </div>
-		
-		
-		
-		
-		
-		
-		
-<%--     <div>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
-                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
-                    상품후기
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
-                 tabindex="0">
-                <div id="map" style="width:100%;height:550px;"></div>
-            </div>
-            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                <div class="mt-3">
-                    <ul class="list-group list-group-flush" id="review-list">
-                        <div class="d-flex justify-content-end">
-                        </div>
-                    </ul>
-                </div>
-                <div class="mt-1 mb-2">
-                    <nav class="d-flex justify-content-center">
-                        <ul class="pagination pagination-sm" id="page-buttons"></ul>
-                    </nav>
-                </div>
-                <div class="mt-3">
-                    <div class="form-floating">
-                        <textarea id="review-form" onkeydown="resize(this)" class="form-control"
-                                  onkeyup="resize(this)" style="width: 100%; min-height: 5rem; overflow-y: hidden; resize: none;"></textarea>
-                        <label for="review-form">댓글을 남겨보세요</label>
-                        <div class="mt-1 d-flex justify-content-end">
-                            <button class="btn btn-sm btn-primary" id="review-write" onclick="writeReview('${sessionScope.mid}')">등록</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --%>				
-		
 		</div>
 		
-  <div id="tabs-4" > <!-- 상품 Q&A (count내용 추가할 예정) -->
+		
+		<!-- ---------------------상품 Q&A (count내용 추가할 예정) ------------------------------>
+		
+  <div id="tabs-4" > 
 	<div class="wrapper row3">
   <main class="container clear"> 
     <h2 class="sectiontitle">상품 QnA</h2>
@@ -259,46 +204,19 @@ $( function() {
 	<table class = "table">
 	  <tr>
 	    <td>
-	      <a href="/item/item_qna_insert.do" class="btn btn-sm btn-danger">문의</a>
+	      <span  class="btn btn-sm btn-danger" onclick="qnaInsert(${vo.ino })">문의</span>
 	    </td>
 	  </tr>
 	</table>
-	<table class="table">
-	  <tr>
-	   <th width="10%" class="text-center">번호</th>
-	   <th width="45%" class="text-center">제목</th>
-	   <th width="15%" class="text-center">작성자</th>
-	   <th width="20%" class="text-center">작성일</th>
-	   <th width="10%" class="text-center">조회수</th>
-	  </tr>
-	  <%--
-	  	for(FreeBoardVO vo:request.getAttribute("list"))
-	   --%>
-	  <c:forEach var="qavo" items="${qalist }"> <%--request.setAttribute("list",list) => request.getAttribute("list" ${list} --%>
-	  	<tr>
-	  		<td width=10% class="text-center">${qavo.qano }</td> <%--vo.no = vo.getNO() : get메소드 호출, 변수가 아니다--%>
-	  		<td width=45%>
-	  		<a href="/happy/item/item_qna_detail.do?no=${qavo.qano }">${qavo.title }</a> &nbsp;
-	  		  <c:if test="${vo.dbday==today }">
-	  		    <sup><img src="assets/project/img/new.gif"></sup>
-	  		  </c:if>
-	  		</td>
-	  		<td width=15% class="text-center">${qavo.mid }</td>
-	  		<td width=20% class="text-center">${qavo.dbday }</td>
-	  		<td width=10% class="text-center">${qavo.hit}</td>
-	  	</tr>
-	  </c:forEach>	
-	</table>
+	
+	<div id="print">
+	  <jsp:include page="item_qna_list.jsp">
+	    <jsp:param value="${vo.ino }" name="ino"/>
+	  </jsp:include>
 	</div>
-	<table class="table">
-	  <tr>
-	    <td class="text-center">
-	    	<a href="../freeboard/list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-sm btn-primary">이전</a>
-	    		${curpage } page / ${totalpage } pages
-	    	<a href="../freeboard/list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-sm btn-primary">다음</a>
-	    </td>
-	  </tr>
-	</table>
+	
+	</div>
+	
   </main>
 </div>
   </div> <!--tabs$ -->
@@ -309,30 +227,17 @@ $( function() {
 <div style="height :40px;"></div>
 
 
-
-
-<%@include file="/happy/fragments/footer.jsp" %> <!-------------------- 1 -->
-<%@include file="/happy/fragments/common-script.jsp" %> <!-------------------- 2 -->
-
+  <jsp:include page="/happy/fragments/footer.jsp" flush="false" /> <!-------------------- 1 -->
+  <jsp:include page="/happy/fragments/common-script.jsp" flush="false" /> <!-------------------- 2 -->
 <script rel="script" src="/assets/project/item/js/item_review.js"></script>
-<script src="assets/project/item/vendors/jquery/jquery-3.2.1.min.js"></script>
-  <script src="assets/project/item/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-  <script src="assets/project/item/vendors/skrollr.min.js"></script>
-  <script src="assets/project/item/vendors/owl-carousel/owl.carousel.min.js"></script>
-  <script src="assets/project/item/vendors/nice-select/jquery.nice-select.min.js"></script>
-  <script src="assets/project/item/vendors/jquery.ajaxchimp.min.js"></script>
-  <script src="assets/project/item/vendors/mail-script.js"></script>
-  <script src="assets/project/item/js/main.js"></script>
+<script rel="script" src="/assets/project/item/js/item_qna.js"></script>
 
+  <script src="assets/project/item/js/main.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> <!--------------------3 -->
   
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> <!-------------------- 4-->
 
 
-
-
-    
-    
 </body>
 </html>

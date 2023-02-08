@@ -17,8 +17,6 @@ public class ItemReviewVO {
 
     private Date created;
 
-    private Date updated;
-
     private String mid;
 
     private int hit;
@@ -32,7 +30,5 @@ public class ItemReviewVO {
     private int num;
 
     private int ino;
-
-    private ItemVO itemVO;
 
 }

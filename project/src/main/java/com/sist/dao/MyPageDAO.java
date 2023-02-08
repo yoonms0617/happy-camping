@@ -1,5 +1,12 @@
 package com.sist.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sist.util.DBConn;
 import com.sist.util.Pagination;
 import com.sist.vo.BoardVO;
@@ -8,13 +15,6 @@ import com.sist.vo.CampVO;
 import com.sist.vo.ItemReviewVO;
 import com.sist.vo.ItemVO;
 import com.sist.vo.MemberVO;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyPageDAO {
 

@@ -6,11 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import com.sist.vo.MemberVO;
+
 import com.sist.util.DBConn;
 import com.sist.util.Pagination;
 import com.sist.vo.BoardVO;
-import com.sist.vo.BoardReplyVO;
 public class BoardDAO {
 
     private Connection conn;

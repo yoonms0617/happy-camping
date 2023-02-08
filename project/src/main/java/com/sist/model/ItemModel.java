@@ -7,21 +7,22 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.ItemDAO;
+import com.sist.dao.ItemQnaDAO;
 import com.sist.dao.ItemReviewDAO;
 import com.sist.util.Pagination;
 import com.sist.vo.ItemQAVO;
-import com.sist.vo.ItemReviewVO;
 import com.sist.vo.ItemVO;
 
 @Controller
 public class ItemModel {
-	private ItemReviewDAO itemReviewDAO;
+	private ItemReviewDAO itemReviewDAO = new ItemReviewDAO();
 
 	@RequestMapping("item/list.do")
 	public String listPage(HttpServletRequest request, HttpServletResponse response) {
@@ -70,43 +71,60 @@ public class ItemModel {
 		String description = vo.getDescription();
 		String[] descript = description.split(",");
 
+
 		request.setAttribute("descript", descript);
 		request.setAttribute("vo", vo);
+		System.out.println("itemqna들어옴");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		String page = request.getParameter("page");
+		if (page == null)
+			page = "1";
+		int curpage = Integer.parseInt(page);
+
+
+
+
+
+
+
+
+
+		ItemQnaDAO idao = new ItemQnaDAO();
+		List<ItemQAVO> qalist = idao.itemQnaList(curpage);
+		int totalpage = idao.itemQnATotalPage();
+		final int BLOCK = 10;
+		int temp = (int) Math.floor((curpage - 1) / BLOCK);
+		int startPage = (BLOCK * temp) + 1;
+		int endPage = startPage + (BLOCK - 1);
+		if (endPage > totalpage)
+			endPage = totalpage;
+		//String ino=request.getParameter("ino");
+		System.out.println("ino="+ino);
+		request.setAttribute("ino", ino);
+		request.setAttribute("qalist", qalist);
+		request.setAttribute("curpage", curpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		return "/happy/item/item_detail.jsp";
-	}
-
-
-	@RequestMapping("item_review_insert.do")
-	public String itemReviewInsert(HttpServletRequest request, HttpServletResponse response) {
-
-		request.setAttribute("main.jsp", "/happy/item/item_review_insert.jsp");
-		return "/happy/main/main.jsp";
-	}
-
-
-	@RequestMapping("item_review_insert_ok.do")
-	public String item_review_insert_ok(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("UTF-8");
-		} catch (Exception e) {
-		}
-		// 사용자가 보내준 데이터를 받는다
-		String name = request.getParameter("name");
-		String subject = request.getParameter("subject");
-		String content = request.getParameter("content");
-		String pwd = request.getParameter("pwd"); // <input type=password name=pwd>
-		// FreeBoardVO에 묶어서 오라클에 전송
-		ItemReviewVO vo = new ItemReviewVO();
-		vo.setWriter(name);
-		vo.setContent(content);
-		vo.setSubject(subject);
-		vo.setPwd(pwd);
-
-		ItemDAO dao = new ItemDAO();
-
-//      dao.boardInsert(vo);
-		// 화면이동
-		return ""; // sendRedirect("../freeboard/list.do")
 	}
 
 
@@ -116,6 +134,7 @@ public class ItemModel {
 	public void itemReviewList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/jason");
+
 		int ino = Integer.parseInt(request.getParameter("ino"));
 		String page = request.getParameter("page");
 		if(page == null) {
@@ -144,29 +163,34 @@ public class ItemModel {
 	@RequestMapping("item/review/update.do")
 	public void ItemReviewUpdate(HttpServletRequest request, HttpServletResponse response) {
 		String content = request.getParameter("content");
-		int ino = Integer.parseInt(request.getParameter("rno"));
-		itemReviewDAO.updateItemReview(content, ino);
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		itemReviewDAO.updateItemReview(content, rno);
+		System.out.println("rno:"+ rno);
 	}
 
 	@RequestMapping("item/review/delete.do")
 	public void ItemReviewDelete(HttpServletRequest request, HttpServletResponse response) {
-		int ino = Integer.parseInt(request.getParameter("rno"));
-		itemReviewDAO.deleteItemReview(ino);
+		int rno = Integer.parseInt(request.getParameter("rno"));
+		itemReviewDAO.deleteItemReview(rno);
 	}
 
 
-	/////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	//       // 아이템 qna
-	@RequestMapping("item/itme_qna_list.do")
+	// 아이템 qna //
+
+	@RequestMapping("item/item_qna_list.do")
+	//@RequestMapping("item/item_detail.do")
 	public String itme_qna_list(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("itemqna들어옴");
 		String page = request.getParameter("page");
 		if (page == null)
 			page = "1";
 		int curpage = Integer.parseInt(page);
 
-		ItemDAO dao = new ItemDAO();
-		List<ItemQAVO> qnlist = dao.itemQnaList(curpage);
+		ItemQnaDAO dao = new ItemQnaDAO();
+		List<ItemQAVO> qalist = dao.itemQnaList(curpage);
 		int totalpage = dao.itemQnATotalPage();
 		final int BLOCK = 10;
 		int temp = (int) Math.floor((curpage - 1) / BLOCK);
@@ -175,19 +199,23 @@ public class ItemModel {
 		if (endPage > totalpage)
 			endPage = totalpage;
 
-		request.setAttribute("qnlist", qnlist);
+		int ino=Integer.parseInt(request.getParameter("ino"));
+		System.out.println("ino="+ino);
+		request.setAttribute("ino", ino);
+		request.setAttribute("qalist", qalist);
 		request.setAttribute("curpage", curpage);
 		request.setAttribute("totalpage", totalpage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-		return "/happy/item/item_detail.jsp";
+		return "/happy/item/item_qna_list.jsp";
 	}
 
 	@RequestMapping("item/item_qna_insert.do")
 	public String item_qna_insert(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("인서트 잘나옴");
-
+        int ino=Integer.parseInt(request.getParameter("ino"));
+        System.out.println("insert-ino:"+ino);
+        request.setAttribute("ino", ino);
 		return "/happy/item/item_qna_insert.jsp";
 	}
 
@@ -198,28 +226,46 @@ public class ItemModel {
 			request.setCharacterEncoding("UTF-8");
 		} catch (Exception ex) {
 		}
-		String mid = request.getParameter("mid");
+		HttpSession session = request.getSession();
+		String mid = (String)session.getAttribute("mid");
+		int ino = Integer.parseInt(request.getParameter("ino"));
+		System.out.println("insertok:"+ino);
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String password = request.getParameter("password");
 		ItemQAVO vo = new ItemQAVO();
-		// ItemVO vo =new ItemVO();
-		// String ino=request.getParameter("ino");
+
+
 		vo.setMid(mid);
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setPassword(password);
-		ItemDAO dao = new ItemDAO();
+		vo.setIno(ino);
+		ItemQnaDAO dao = new ItemQnaDAO();
 		dao.itemQnAInsert(vo);
-		/* return "redirect:/happy/item/item_detail.jsp"; */
-		return "redirect:item/item_qna_list.do";
+
+		return "redirect:item_qna_list.do?ino="+ino;
 	}
 
-	@RequestMapping("item_qna_detail.do")
+	@RequestMapping("item/item_qna_detail.do")
 	public String item_qna_detail(HttpServletRequest request, HttpServletResponse response) {
-		String no = request.getParameter("no");
-		ItemDAO dao = new ItemDAO();
-		return "redirect:/happy/item/item_detail.do";
+		String qano = request.getParameter("qano");
+		System.out.println("vo.qano:"+qano);
+		ItemQnaDAO dao = new ItemQnaDAO();
+		ItemQAVO vo = dao.itemQnADetail(Integer.parseInt(qano));
+		request.setAttribute("vo", vo);
+		request.setAttribute("qano", qano);
+		return "/happy/item/item_qna_detail.jsp?qano="+qano;
+	}
+
+	@RequestMapping("item/item_qna_delete.do")
+	public String item_qna_delete(HttpServletRequest request, HttpServletResponse response) {
+		String ino = request.getParameter("ino");
+		String qano = request.getParameter("pano");
+		String password = request.getParameter("pwd");
+		ItemQnaDAO dao = new ItemQnaDAO();
+
+		return "redirect:item_qna_list.do?ino="+ino;
 	}
 
 
@@ -236,7 +282,7 @@ public class ItemModel {
 		String page=request.getParameter("page");
 		if(page==null)
 			page="1";
-		
+
 		int curpage=Integer.parseInt(page);
 		ItemDAO dao=new ItemDAO();
 		List<ItemVO> list=dao.itemsearchData(curpage, ss);

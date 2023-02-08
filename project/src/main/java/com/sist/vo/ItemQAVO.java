@@ -29,4 +29,6 @@ public class ItemQAVO {
 
     private Date dbday;
 
+    private int ino;
+
 }

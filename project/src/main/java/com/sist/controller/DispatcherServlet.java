@@ -55,7 +55,7 @@ public class DispatcherServlet extends HttpServlet {
         try {
             for (String model : models) {
                 Class clazz = Class.forName(model);
-                if (clazz.isAnnotationPresent(Controller.class) == false) {
+                if (!clazz.isAnnotationPresent(Controller.class)) {
                     continue;
                 }
                 Object object = clazz.getDeclaredConstructor().newInstance();
