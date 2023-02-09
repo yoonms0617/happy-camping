@@ -17,4 +17,19 @@ public class BoardReplyVO {
 
     private Date regDate;
 
+    private int bno;
+
+    private String mid;
+
+    private int group_id;
+
+    private int group_step;
+
+    private int group_tab;
+
+    private int root;
+
+    private int depth;
+
+    private String dbday;
 }
