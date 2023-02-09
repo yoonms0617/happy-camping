@@ -17,4 +17,8 @@ public class OrderItemVO {
 
 	private int quantity;
 
+	private int ino;
+
+	private int ono;
+
 }

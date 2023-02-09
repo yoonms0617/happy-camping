@@ -69,10 +69,22 @@
             <div class="px-5">
                 <h3>주문 목록</h3>
             </div>
+            <div id="order-item-list" class="p-5">
+                <!-- 주문 목록 나오는 곳 -->
+            </div>
+            <div class="mt-3 mb-2">
+                <nav class="d-flex justify-content-center">
+                    <ul class="pagination pagination-sm" id="order-item-page-buttons">
+                        <!-- 페이징 버튼 나오는 곳 -->
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
+</div>
 <%@include file="/happy/fragments/footer.jsp" %>
 <%@include file="/happy/fragments/common-script.jsp" %>
+<script rel="script" src="/assets/project/member/js/mypage-order.js"></script>
 </body>
 </html>
