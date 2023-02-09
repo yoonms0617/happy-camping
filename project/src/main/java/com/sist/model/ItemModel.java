@@ -305,7 +305,8 @@ public class ItemModel {
 		    cookie.setMaxAge(60*60*24);
 		    response.addCookie(cookie);
 		}catch (Exception e) {}
-		return "redirect:../item/item_detail.do?ino="+ino;
+		
+		return "redirect:../item/item_detail.do?ino="+Integer.parseInt(ino);
 	}	
 
 }
