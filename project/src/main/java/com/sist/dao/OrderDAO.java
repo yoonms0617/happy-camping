@@ -2,7 +2,10 @@ package com.sist.dao;
 
 import com.sist.util.DBConn;
 import com.sist.util.Pagination;
+import com.sist.vo.CartVO;
+import com.sist.vo.DeliveryVO;
 import com.sist.vo.ItemVO;
+import com.sist.vo.MemberVO;
 import com.sist.vo.OrderItemVO;
 import com.sist.vo.OrderVO;
 
@@ -28,19 +31,20 @@ public class OrderDAO {
     }
 
     // 상품 주문 페이지
-    public ItemVO orderCheck(int ino) {
-        String itemFindSQL = "SELECT name, image, price, sale FROM HC_ITEM_2 ino = ?";
-        ItemVO vo = new ItemVO();
+    public CartVO orderCheck(int cno) {
+        String itemFindSQL = "SELECT image, name, price, quantity, ino FROM HC_CART_2 cno = ?";
+        CartVO vo = new CartVO();
         try {
             conn = dbConn.createConnection();
             ps = conn.prepareStatement(itemFindSQL);
-            ps.setInt(1, ino);
+            ps.setInt(1, cno);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                vo.setName(rs.getString(1));
-                vo.setImage(getMainImage(rs.getString(2)));
+                vo.setImage(getMainImage(rs.getString(1)));
+                vo.setName(rs.getString(2));
                 vo.setPrice(rs.getInt(3));
-                vo.setSale(rs.getInt(4));
+                vo.setQuantity(rs.getInt(4));
+                vo.setIno(rs.getInt(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,24 +55,75 @@ public class OrderDAO {
     }
 
     // 주문 상세 페이지
-    public void orderDetail(String mid) {
-        String orderDetailSQL = "";
+    public OrderVO orderDetail(int ono) {
+        String orderDetailSQL =
+                "SELECT ho.ONO, ho.CODE, ho.STATUS, ho.PRICE, ho.ORDER_DATE, hoi.IMAGE, " +
+                "hoi.NAME, hoi.PRICE, hoi.QUANTITY, hd.NAME, hd.POSTCODE, hd.HOME_ADDR, hd.DETAIL_ADDR FROM HC_ORDER_2 ho " +
+                "INNER JOIN HC_ORDER_ITEM_2 hoi " +
+                "ON ho.ONO = hoi.ONO " +
+                "INNER JOIN HC_DELIVERY_2 hd " +
+                "ON ho.ONO = hd.DNO " +
+                "WHERE ho.ONO = ?";
+        OrderVO vo = new OrderVO();
         try {
             conn = dbConn.createConnection();
             ps = conn.prepareStatement(orderDetailSQL);
+            ps.setInt(1, ono);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DeliveryVO deliveryVO = new DeliveryVO();
+                OrderItemVO orderItemVO = new OrderItemVO();
+                vo.setOno(rs.getInt(1));
+                vo.setCode(rs.getString(2));
+                vo.setStatus(rs.getString(3));
+                vo.setPrice(rs.getInt(4));
+                vo.setOrderedAt(rs.getDate(5));
+                orderItemVO.setImage(getMainImage(rs.getString(6)));
+                orderItemVO.setName(rs.getString(7));
+                orderItemVO.setPrice(rs.getInt(8));
+                orderItemVO.setQuantity(rs.getInt(9));
+                deliveryVO.setName(rs.getString(10));
+                deliveryVO.setPostcode(rs.getString(11));
+                deliveryVO.setHomeAddr(rs.getString(12));
+                deliveryVO.setDetailAddr(rs.getString(13));
+                vo.setOrderItemVO(orderItemVO);
+                vo.setDeliveryVO(deliveryVO);
+            }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             dbConn.closeConnection(ps, conn);
         }
+        return vo;
     }
 
     // 상품 주문
-    public void orderItem() {
-        String orderItemSQL = "INSERT INTO";
+    public void orderItem(MemberVO member, OrderItemVO orderItem) {
+        String orderSQL = "INSERT INTO HC_ORDER_2 (ONO, CODE, STATUS, PRICE, MID) VALUES (HC_ORDER_SEQ.NEXTVAL, ?, ?, ?, ?)";
+        String orderItemSQL = "INSERT INTO HC_ORDER_ITEM_2 (OINO, IMAGE, NAME, PRICE, QUANTITY, INO, ONO) VALUES (HC_ORDER_ITEM_SEQ.NEXTVAL, ?, ?, ?, ?, ?, HC_ORDER_SEQ.CURRVAL)";
+        String orderDeliverySQL = "INSERT INTO HC_DELIVERY_2 (DNO, NAME, TEL, POSTCODE, HOME_ADDR, DETAIL_ADDR) VALUES (HC_ORDER_SEQ.CURRVAL, ?, ?, ?, ?, ?)";
         try {
             conn = dbConn.createConnection();
             ps = conn.prepareStatement(orderItemSQL);
+            ps.setString(1, orderItem.getImage());
+            ps.setString(2, orderItem.getName());
+            ps.setInt(3, orderItem.getPrice());
+            ps.setInt(4, orderItem.getQuantity());
+            ps.setInt(5, orderItem.getIno());
+            ps.executeUpdate();
+            ps = conn.prepareStatement(orderSQL);
+            ps.setString(1, createOrderCode(orderItem.getIno()));
+            ps.setString(2, "주문 완료");
+            ps.setInt(3, orderItem.getPrice() * orderItem.getQuantity());
+            ps.setString(4, member.getMid());
+            ps.executeUpdate();
+            ps = conn.prepareStatement(orderDeliverySQL);
+            ps.setString(1, member.getName());
+            ps.setString(2, member.getTel());
+            ps.setString(3, member.getPostcode());
+            ps.setString(4, member.getHomeAddr());
+            ps.setString(5, member.getDetailAddr());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -28,7 +28,7 @@ function drawOrderList(result) {
                 '<span class="fs-4">' + items[index].orderedAt + ' 주문</span> ' +
                 '</div> ' +
                 '<div> ' +
-                '<a class="text-decoration-none" href="#">주문 상세보기</a> ' +
+                '<a class="text-decoration-none" href="/order/detail.do?ono=' + items[index].ono + '">주문 상세보기</a> ' +
                 '</div> ' +
                 '</div> ' +
                 '<hr> ' +
@@ -43,7 +43,7 @@ function drawOrderList(result) {
                 '<h4 class="m-0">' + items[index].orderItemVO.name + '</h4> ' +
                 '</a> ' +
                 '<div class="mt-1"> ' +
-                '<span class="text-muted">' + new Intl.NumberFormat().format(items[index].orderItemVO.price) + '원 •' + items[index].orderItemVO.quantity + '</span> ' +
+                '<span class="text-muted">' + new Intl.NumberFormat().format(items[index].orderItemVO.price) + '원 • ' + items[index].orderItemVO.quantity + '</span> ' +
                 '</div> ' +
                 '</div> ' +
                 '</div> ' +

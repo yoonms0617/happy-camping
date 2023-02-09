@@ -21,4 +21,6 @@ public class OrderVO {
 
     private OrderItemVO orderItemVO;
 
+    private DeliveryVO deliveryVO;
+
 }

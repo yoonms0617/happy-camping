@@ -45,7 +45,12 @@ public class MemberModel {
 			HttpSession session =request.getSession();
 			session.setAttribute("mid", vo.getMid());
 			session.setAttribute("name", vo.getName());
+            session.setAttribute("email", vo.getEmail());
 			session.setAttribute("role", vo.getRole());
+            session.setAttribute("tel", vo.getTel());
+            session.setAttribute("postcode", vo.getPostcode());
+            session.setAttribute("homeAddr", vo.getHomeAddr());
+            session.setAttribute("detailAddr", vo.getDetailAddr());
 		}
 
 		request.setAttribute("result", vo.getMsg());
