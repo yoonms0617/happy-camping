@@ -95,6 +95,62 @@ public class ItemDAO {
         }
         return newItems;
     }
+    
+    public List<ItemVO> ReItemList() {
+        String sql =
+                "SELECT ino, image, name, price " +
+                        "FROM (SELECT ino, image, name, price FROM HC_ITEM_2 ORDER BY image DESC) " +
+                        "WHERE ROWNUM <= 5";
+        List<ItemVO> reItems = new ArrayList<>();
+        try {
+            conn = dbConn.createConnection();
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ItemVO itemVO = new ItemVO();
+                itemVO.setIno(rs.getInt(1));
+                String mainImage = getMainImage(rs.getString(2));
+                itemVO.setImage(mainImage);
+                itemVO.setName(rs.getString(3));
+                itemVO.setPrice(rs.getInt(4));
+                reItems.add(itemVO);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbConn.closeConnection(ps, conn);
+        }
+        return reItems;
+    }
+    
+    public List<ItemVO> pickItemList() {
+        String sql =
+                "SELECT ino, image, name, price " +
+                        "FROM (SELECT ino, image, name, price FROM HC_ITEM_2 ORDER BY name ASC) " +
+                        "WHERE ROWNUM <=5";
+        List<ItemVO> pickItems = new ArrayList<>();
+        try {
+            conn = dbConn.createConnection();
+            ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ItemVO itemVO = new ItemVO();
+                itemVO.setIno(rs.getInt(1));
+                String mainImage = getMainImage(rs.getString(2));
+                itemVO.setImage(mainImage);
+                itemVO.setName(rs.getString(3));
+                itemVO.setPrice(rs.getInt(4));
+                pickItems.add(itemVO);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbConn.closeConnection(ps, conn);
+        }
+        return pickItems;
+    }
 
     //캠핑용품 상위카테고리//
     public List<ItemVO> itemCategoryList(int page, int type) {
@@ -158,7 +214,8 @@ public class ItemDAO {
         List<ItemVO> list = new ArrayList<>();
         try {
             conn = dbConn.createConnection();
-            String sql = "select ino, image, name, price, num " + "from (select ino, image, name, price, rownum as num "
+            String sql = "select ino, image, name, price, num " 
+                    + "from (select ino, image, name, price, rownum as num "
                     + "from (select ino, image, name, price "
                     + "from hc_item_2 where icno in(select icno from hc_item_category_2 where code="
                     + this.typeList.get(type).get(type1) + "))) " + "where num between ? and ?";

@@ -82,10 +82,14 @@
                     <div class="col">
                         <div class="card shadow-sm">
                             <div class="card-img-top" width="100%" height="100%">
-                                <img class="m-auto" src="${hotSaleItem.image}" width="312"/>
+                                <a href="/item/item_before_detail.do?ino=${hotSaleItem.ino }">
+                                  <img class="m-auto" src="${hotSaleItem.image}" width="312"/>
+                                </a>
                             </div>
                             <div class="card-body">
-                                <p class="card-text text-truncate">${hotSaleItem.name}</p>
+                                <a href="/item/item_before_detail.do?ino=${hotSaleItem.ino }"class="text-decoration-none text-underline-hover text-dark">
+                                  <p class="card-text text-truncate">${hotSaleItem.name}</p>
+                                </a>
                                 <div class="d-flex position-relative">
                                     <p class="align-items-center text-danger display-6 flex-shrink-0 mb-0 me-2">
                                             ${hotSaleItem.sale}%
@@ -116,10 +120,14 @@
                     <div class="col">
                         <div class="card shadow-sm">
                             <div class="card-img-top" width="100%" height="100%">
+                             <a href="/item/item_before_detail.do?ino=${newItem.ino }">
                                 <img class="m-auto" src="${newItem.image}" width="312"/>
+							</a>                              
                             </div>
                             <div class="card-body">
+                            <a href="/item/item_before_detail.do?ino=${newItem.ino }"class="text-decoration-none text-underline-hover text-dark">
                                 <p class="card-text text-truncate">${newItem.name}</p>
+                                </a>
                                 <p class="card-text">
                                     <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
                                 </p>
@@ -139,16 +147,20 @@
             <span class="display-6">재입고 상품</span>
             <!-- 재입고 상품 슬라이더 -->
             <div class="main-slider">
-                <c:forEach var="newItem" items="${newItems}">
+                <c:forEach var="reItems" items="${reItems}">
                     <div class="col">
                         <div class="card shadow-sm">
                             <div class="card-img-top" width="100%" height="100%">
-                                <img class="m-auto" src="${newItem.image}" width="312"/>
+                             <a href="/item/item_before_detail.do?ino=${reItems.ino }">
+                                <img class="m-auto" src="${reItems.image}" width="312"/>
+							</a>                              
                             </div>
                             <div class="card-body">
-                                <p class="card-text text-truncate">${newItem.name}</p>
+                            <a href="/item/item_before_detail.do?ino=${reItems.ino }"class="text-decoration-none text-underline-hover text-dark">
+                                <p class="card-text text-truncate">${reItems.name}</p>
+                                </a>
                                 <p class="card-text">
-                                    <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
+                                    <fmt:formatNumber value="${reItems.price}" pattern="#,###"/>원
                                 </p>
                             </div>
                         </div>
@@ -165,16 +177,21 @@
             <span class="display-6">추천 상품</span>
             <!-- 추천상품 슬라이더 -->
             <div class="main-slider">
-                <c:forEach var="newItem" items="${newItems}">
+                <c:forEach var="pickItems" items="${pickItems}">
                     <div class="col">
+                    
                         <div class="card shadow-sm">
                             <div class="card-img-top" width="100%" height="100%">
-                                <img class="m-auto" src="${newItem.image}" width="312"/>
+                             <a href="/item/item_before_detail.do?ino=${pickItems.ino }">
+                                <img class="m-auto" src="${pickItems.image}" width="312"/>
+							</a>                              
                             </div>
                             <div class="card-body">
-                                <p class="card-text text-truncate">${newItem.name}</p>
+                            <a href="/item/item_before_detail.do?ino=${pickItems.ino }"class="text-decoration-none text-underline-hover text-dark">
+                                <p class="card-text text-truncate">${pickItems.name}</p>
+                                </a>
                                 <p class="card-text">
-                                    <fmt:formatNumber value="${newItem.price}" pattern="#,###"/>원
+                                    <fmt:formatNumber value="${pickItems.price}" pattern="#,###"/>원
                                 </p>
                             </div>
                         </div>

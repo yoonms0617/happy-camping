@@ -30,9 +30,13 @@ public class MainModel {
     public String mainPage(HttpServletRequest request, HttpServletResponse response) {
         List<ItemVO> hotSaleItems = itemDAO.hotSaleItem();
         List<ItemVO> newItems = itemDAO.newItemList();
+        List<ItemVO> reItems = itemDAO.ReItemList();
+        List<ItemVO> pickItems = itemDAO.pickItemList();
         List<CampVO> campItems = campDAO.campItems();
         request.setAttribute("hotSaleItems", hotSaleItems);
         request.setAttribute("newItems", newItems);
+        request.setAttribute("reItems", reItems);
+        request.setAttribute("pickItems", pickItems);
         request.setAttribute("campItems", campItems);
         
         // 쿠키 전송
