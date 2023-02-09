@@ -214,70 +214,71 @@
 </div>
 
 <!-- 메인페이지 : 퀵메뉴바 관련 기능 -->
+<!-- 메인페이지 : 퀵메뉴바 관련 기능 -->
 <c:if test="${count!=0 }">
    <!-- 상품을 1개 본 경우 -->
    <c:if test="${count==1 }">
-    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
-    <div class="border">
-    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 400px;">
+    <div>
+    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 18px;font-size: 2px" onclick="window.scrollTo(0,0)" >△</button>
     </div>
-    <div class="border bg-light"style="height:100px">
+    <div class="border bg-light"style="height:90px">
     <c:forEach var="ivo" items="${iList }" varStatus="s">
     <div  colspan="2" style="cursor:pointer;">
       <c:if test="${s.index<3 }">  
          <a href="/item/item_detail.do?ino=${ivo.ino }">
-         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 90px"></a>
       </c:if>
      </div>
 	 </c:forEach>
    </div>
    <div class="">
-    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
+    <button type="button" class="btn btn-sm btn-secondary"onclick="window.scrollTo(10000,10000)"  style="width:70px;height: 18px;font-size: 2px" >▽</button>
    </div>
    </div>
    </c:if>
    
    <!-- 상품을 2개 본 경우 -->
    <c:if test="${count==2 }">
-    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
-    <div class="border">
-    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 400px;">
+    <div>
+    <button type="button" class="btn btn-sm btn-secondary"  style="width:70px;height: 18px;font-size: 2px"onclick="window.scrollTo(0,0)"  >△</button>
     </div>
-    <div class="border bg-light"style="height:200px">
+    <div class="border bg-light"style="height:180px">
     <c:forEach var="ivo" items="${iList }" varStatus="s">
     <div  colspan="2" style="cursor:pointer;">
       <c:if test="${s.index<3 }">  
          <a href="/item/item_detail.do?ino=${ivo.ino }">
-         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 90px"></a>
       </c:if>
      </div>
 	 </c:forEach>
    </div>
    <div class="">
-    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
+    <button type="button" class="btn btn-sm btn-secondary"onclick="window.scrollTo(10000,10000)"   style="width:70px;height: 18px;font-size: 2px">▽</button>
    </div>
    </div>
    </c:if>
    
    
   <!-- 상품을 3개이상 본 경우 -->
-  <c:if test="${count==3 }">
-   <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
-   <div class="border">
-    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+  <c:if test="${count>3 }">
+   <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 400px;">
+   <div>
+    <button type="button" class="btn btn-sm btn-secondary"  style="width:70px;height: 18px;font-size: 2px"onclick="window.scrollTo(0,0)"  >△</button>
    </div>
-   <div class="border bg-light"style="height:300px">
+   <div class="border bg-light"style="height:270px">
    <c:forEach var="ivo" items="${iList }" varStatus="s">
    <div  colspan="2" style="cursor:pointer;">
        <c:if test="${s.index<3 }">  
          <a href="/item/item_detail.do?ino=${ivo.ino }">
-         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 90px"></a>
        </c:if> 
        </div>
 	 </c:forEach>
    </div>
    <div class="">
-    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
+    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)"   style="width:70px;height: 18px;font-size: 2px" >▽</button>
    </div>
    </div>
   </c:if>

@@ -115,13 +115,13 @@
 	        <div class="col" style= "padding:4px">
 	          <div class="card shadow-sm" >
 	           
-				 <a href="/item/item_detail.do?ino=${vo.ino}"> <img src="${vo.image }" title="${vo.name }" class="bd-placeholder-img card-img-top" width="100%"
+				 <a href="/item/item_before_detail.do?ino=${vo.ino }"> <img src="${vo.image }" title="${vo.name }" class="bd-placeholder-img card-img-top" width="100%"
 					height="300"  focusable="false"/></a>  
 					<title>${vo.name }</title>
 					
 					
 				<div class="card-body" style="width=100%; height=300px" >
-	              <a href="/item/item_detail.do?ino=${vo.ino}" style="text-decoration:none; color: #555555; font-size: 15px" ><p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${vo.name }</p></a>
+	              <a href="/item/item_before_detail.do?ino=${vo.ino }" style="text-decoration:none; color: #555555; font-size: 15px" ><p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">${vo.name }</p></a>
 	              <div class="d-flex justify-content-between align-items-center" style="font-size: 14px">
 	              	<fmt:formatNumber value="${vo.price}" pattern="#,###"  />원
 	              </div>
