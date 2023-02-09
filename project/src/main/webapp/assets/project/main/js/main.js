@@ -7,4 +7,3 @@ $(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
    });
    
 });
-
