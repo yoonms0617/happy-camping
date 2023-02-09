@@ -10,7 +10,8 @@
                 <img src="/assets/images/main/logo/happy-logo-2.jpeg" width="400">
             </a>
         </div>
-        <form class="mt-3" id="login-form" method="post"> <!-- 로그인 -->
+        <!-- id="loginForm" name="loginForm"   (변경전)login-form -->
+        <form class="mt-3" name="loginForm" id="loginForm" method="post"  onsubmit="return frm_check();"> <!-- 로그인 -->
             <div class="form-floating">
                 <input type="text" class="form-control" id="userid" name="userid" placeholder="아이디">
                 <label for="userid">아이디</label>
@@ -19,7 +20,11 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
                 <label for="password">비밀번호</label>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 logSave">
+                <input type="checkbox" class="save_id" name="checkId" id="saveId" >
+                <label for="saveId">아이디 저장</label>
+            </div>
+            <div class="mt-2">
                 <font size="4">
                     <span id="err-msg" class="text-danger"></span>
                 </font>
