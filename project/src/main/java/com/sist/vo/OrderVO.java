@@ -19,4 +19,6 @@ public class OrderVO {
 
     private Date orderedAt;
 
+    private OrderItemVO orderItemVO;
+
 }
