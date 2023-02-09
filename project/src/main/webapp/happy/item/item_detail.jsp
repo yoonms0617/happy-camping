@@ -4,7 +4,7 @@
 <jsp:include page="/happy/fragments/head.jsp" flush="false" /> <!--------------------4  -->
 <jsp:include page="/happy/fragments/header.jsp" flush="false" />  <!-------------------- 5 -->
 
-
+	
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"><!--------------------  6-->
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script><!-------------------- 7 -->
@@ -14,7 +14,33 @@
 <script type="text/javascript">
 $( function() {
     $( "#tabs" ).tabs();
+	
+	$('#cart').click(function(){
+		let image=$('#image').attr('src');
+    	let name=$('#name').text();
+    	let price=$('#price').text();
+    	let quantity=$('#quantity').val();
+    	let ino=getIno();
+    	$.ajax({
+    		type:'post',
+    		url:'/cart/cart_insert.do',
+    		data:{
+    			"image":image,
+    			"name":name,
+    			"price":price,
+    			"quantity":quantity,
+    			"ino":ino
+    		}
+    		success:function(){
+    			alert("상품이 장바구니에 담겼습니다")
+    		}
+    	})
+    })
 })
+function getIno (){
+	let params = new URLSearchParams(location.search);
+	return params.get('ino');
+}
 </script>
 
 
@@ -28,13 +54,13 @@ $( function() {
   <div style="height: 5px"></div>
   <div class="detailArea" >
     <div class="pe-sm-5"style="width:50%;  float:left "> 
-      <img src="${vo.image }" style="width:100%">
+      <img src="${vo.image }" style="width:100%" id="image">
     </div>
     <div class="infoArea">
     <div style="height: 50px"></div>
       <table>
           <tr>
-            <p class="fs-4">${vo.name }</p>
+            <p class="fs-4" id="name">${vo.name }</p>
           </tr>
           <c:if test="${vo.sale!=0 }">
           <tr>
@@ -58,7 +84,7 @@ $( function() {
           <c:if test="${vo.sale==0 }">
            <tr class="pt-sm-5 ">
 	           <th>판매가&nbsp;: </th>
-           	   <td class="pt-sm-2"><fmt:formatNumber value="${vo.price}" pattern="#,###"/>원</td>
+           	   <td class="pt-sm-2" id="price"><fmt:formatNumber value="${vo.price}" pattern="#,###"/>원</td>
           </tr>
           </c:if>
           
@@ -82,17 +108,36 @@ $( function() {
           <tr  >
            <th>3,000원 &nbsp; (50,000원 이상 구매 시 무료)</th>
           </tr>
-          <tr style="height:30px"></tr>
+		  <tr>
+            <th>수량&nbsp;:</th>
+            <td class="pt-sm-3">
+              <select name="account" class="input-sm" data-price="${vo.price}" id="quantity">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              &nbsp;
+              <h4 id="total_price"></h4>
+            </td>
+          </tr>
+		  <tr style="height:30px"></tr>
           <tr style="border-bottom: 1px solid black"></tr>
           <tr style="height:30px"></tr>
           <tr>
             <th colspan="3">
                 <div class="d-flex justify-content-center">
                     <div>
-                        <button type="button"style="height:50px ;width:160px;" class="btn btn-sm btn-dark me-1">구매하기</button>
+                        <button type="button" style="height:50px ;width:160px;" class="btn btn-sm btn-dark me-1">구매하기</button>
                     </div>
                     <div>
-                        <button type="button"style="height:50px;width:160px;" class="btn btn-sm btn-outline-secondary me-1">장바구니</button>
+                        <button type="button" id="cart" style="height:50px;width:160px;" class="btn btn-sm btn-outline-secondary me-1">장바구니</button>
                     </div>
                     <div id="like-btn">
 <%--                        <button type="button"style="height:50px;width:160px;" class="btn btn-sm btn-outline-secondary">좋아요</button>--%>
@@ -222,9 +267,7 @@ $( function() {
 	    <jsp:param value="${vo.ino }" name="ino"/>
 	  </jsp:include>
 	</div>
-	
-	</div>
-	
+ 	</div>
   </main>
 </div>
   </div> <!--tabs$ -->
@@ -240,7 +283,7 @@ $( function() {
 <script rel="script" src="/assets/project/item/js/item_review.js"></script>
 <script rel="script" src="/assets/project/item/js/item_qna.js"></script>
 
-  <script src="assets/project/item/js/main.js"></script>
+  <script src="/assets/project/item/js/main.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script> <!--------------------3 -->
   
