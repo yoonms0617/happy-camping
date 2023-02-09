@@ -127,10 +127,6 @@ public class ItemModel {
 		String mid = request.getParameter("mid");
 		String content = request.getParameter("content");
 		int ino = Integer.parseInt(request.getParameter("ino"));
-		System.out.println("아이템ino들어옴");
-		System.out.println("mid:"+ mid);
-		System.out.println("content:"+ content);
-		System.out.println("ino:"+ ino);
 
 		itemReviewDAO.writeItemReview(mid, content, ino);
 
