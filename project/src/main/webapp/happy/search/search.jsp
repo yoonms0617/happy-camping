@@ -12,24 +12,32 @@
         <h3>"${ss }"&nbsp;관련 검색어 검색 결과 <small>(${itemtotal })</small></h3>
     </div>
 	<div class="clear"></div>
-  <c:if test="${itemtotal==0 }">
-   <h5 class="text-danger" >검색어를 입력해주세요</h5>
-  </c:if>
+	
+	<c:if test="${itemtotal==0 }">
+	  <c:choose> 
+	     <c:when test="${ss.equals('')}">
+		     <h5 class="text-danger" >검색어를 입력해주세요</h5>
+	     </c:when> 
+	     <c:otherwise>
+		     <h5 class="text-danger" >검색어를 확인해주세요</h5>
+	     </c:otherwise> 
+      </c:choose> 
+   </c:if>
 
   <c:if test="${itemtotal>0 }">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-5">
     <c:forEach var="vo" items="${list }" varStatus="s">
 	    <div class="col" style= "padding:4px">
 	       <div class="card shadow-sm" >
-	          <a href="/item/item_detail.do?ino=${vo.ino }"> 
+	          <a href="/item/item_before_detail.do?ino=${vo.ino }"> 
 				 <img src="${vo.image }" title="${vo.name }" class="bd-placeholder-img card-img-top" 
 				 width="100%" height="300px"  focusable="false"/>
 			  </a>  
-			  <a href="/item/item_detail.do?ino=${vo.ino }">
+			  <a href="/item/item_before_detail.do?ino=${vo.ino }">
 			     <title>${vo.name }</title>
 			  </a>
 			 <div class="card-body" style="width=100%; height=300px" >
-	            <a href="/item/item_detail.do?ino=${vo.ino }" style="text-decoration:none; color: #555555; font-size: 15px" >
+	            <a href="/item/item_before_detail.do?ino=${vo.ino }" style="text-decoration:none; color: #555555; font-size: 15px" >
 	             <p class="card-text" style="text-overflow: ellipsis; white-space : nowrap; overflow : hidden;">
 	              <font size="4"> ${vo.name }</font></p></a>
 	               <div class="d-flex position-relative">

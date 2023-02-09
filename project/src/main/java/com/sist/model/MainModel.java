@@ -58,6 +58,8 @@ public class MainModel {
 		}
 		// 최근 본 상품 (메인 페이지 퀵메뉴)
 		request.setAttribute("iList", iList);
+		request.setAttribute("i2List", iList);
+		request.setAttribute("count", iList.size());
         return "/happy/main/main.jsp";
     }
 
