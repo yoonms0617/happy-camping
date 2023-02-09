@@ -214,27 +214,74 @@
 </div>
 
 <!-- 메인페이지 : 퀵메뉴바 관련 기능 -->
-<div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
-   <div class="border">
-    <button type="button" class="btn btn-sm btn-dark start" style="width:70px;"onclick="window.scrollTo(0,0)" >△</button>
-   </div>
-   <div class="border bg-light"style="height:330px">
-   <c:forEach var="ivo" items="${iList }" varStatus="s">
-   <div  colspan="2" style="cursor:pointer;">
-      
-         <c:if test="${s.index<3 }">  
-           
-            <a href="/item/item_detail.do?ino=${ivo.ino }">
-            <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
-            </c:if>
-             <div style="height:10px"></div> 
-            </div>
+<c:if test="${count!=0 }">
+   <!-- 상품을 1개 본 경우 -->
+   <c:if test="${count==1 }">
+    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
+    <div class="border">
+    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+    </div>
+    <div class="border bg-light"style="height:100px">
+    <c:forEach var="ivo" items="${iList }" varStatus="s">
+    <div  colspan="2" style="cursor:pointer;">
+      <c:if test="${s.index<3 }">  
+         <a href="/item/item_detail.do?ino=${ivo.ino }">
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+      </c:if>
+     </div>
 	 </c:forEach>
    </div>
    <div class="">
-    <button type="button" class="btn btn-sm btn-dark" onclick="window.scrollTo(10000,10000)" style="width:70px" >▽</button>
+    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
    </div>
-</div>
+   </div>
+   </c:if>
+   
+   <!-- 상품을 2개 본 경우 -->
+   <c:if test="${count==2 }">
+    <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
+    <div class="border">
+    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+    </div>
+    <div class="border bg-light"style="height:200px">
+    <c:forEach var="ivo" items="${iList }" varStatus="s">
+    <div  colspan="2" style="cursor:pointer;">
+      <c:if test="${s.index<3 }">  
+         <a href="/item/item_detail.do?ino=${ivo.ino }">
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+      </c:if>
+     </div>
+	 </c:forEach>
+   </div>
+   <div class="">
+    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
+   </div>
+   </div>
+   </c:if>
+   
+   
+  <!-- 상품을 3개이상 본 경우 -->
+  <c:if test="${count==3 }">
+   <div id="Quick" class="bg-lite" style="position: absolute; right: 20px; top: 380px;">
+   <div class="border">
+    <button type="button" class="btn btn-sm btn-secondary" style="width:70px;height: 25px""onclick="window.scrollTo(0,0)" >△</button>
+   </div>
+   <div class="border bg-light"style="height:300px">
+   <c:forEach var="ivo" items="${iList }" varStatus="s">
+   <div  colspan="2" style="cursor:pointer;">
+       <c:if test="${s.index<3 }">  
+         <a href="/item/item_detail.do?ino=${ivo.ino }">
+         <img class="border"src="${ivo.image }" style="width: 70px; height: 100px"></a>
+       </c:if> 
+       </div>
+	 </c:forEach>
+   </div>
+   <div class="">
+    <button type="button" class="btn btn-sm btn-secondary" onclick="window.scrollTo(10000,10000)" style="width:70px;height: 25px" >▽</button>
+   </div>
+   </div>
+  </c:if>
+</c:if>
 <jsp:include page="/happy/fragments/footer.jsp" flush="false"/>
 <jsp:include page="/happy/fragments/common-script.jsp" flush="false"/>
 <!-- slider js -->
