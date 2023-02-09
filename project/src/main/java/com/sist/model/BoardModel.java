@@ -1,12 +1,16 @@
 package com.sist.model;
 
+import java.util.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.BoardDAO;
 import com.sist.util.Pagination;
+import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
 
 @Controller
@@ -39,6 +43,11 @@ public class BoardModel {
         int no = Integer.parseInt(request.getParameter("no"));
         BoardVO board = boardDAO.boardDetail(no);
         request.setAttribute("board", board);
+        BoardDAO dao=new BoardDAO();
+        BoardVO vo=new BoardVO();
+        List<BoardReplyVO> list=dao.replyListData(no);
+  	    request.setAttribute("list", list);
+  	    request.setAttribute("count", list.size());
         return "/happy/board/board_detail.jsp";
     }
 
@@ -72,5 +81,74 @@ public class BoardModel {
         boardDAO.boardDelete(no);
         return "redirect:board/list.do";
     }
+    //댓글
+    @RequestMapping("board/replywrite.do")
+    public String replyWrite(HttpServletRequest request,HttpServletResponse response)
+    {
+  	  try{
+  		  request.setCharacterEncoding("UTF-8");
+  	  }catch(Exception ex) {}
+  	  HttpSession session=request.getSession();
+  	  
+  	  String bno=request.getParameter("bno");
+  	  String writer=(String)session.getAttribute("name");
+  	  System.out.println(writer);
+  	  String mid=(String)request.getSession().getAttribute("mid");
+  	  String content=request.getParameter("content");
+  	  System.out.println(content);
+  	  BoardReplyVO vo=new BoardReplyVO();
+  	  vo.setBno(Integer.parseInt(bno));
+  	  vo.setMid(mid);
+  	  vo.setWriter(writer);
+  	  vo.setContent(content);
+  	  BoardDAO dao=new BoardDAO();
+  	  dao.replyWrite(vo);
+  	  return "redirect:detail.do?no="+bno;
+    }
+    @RequestMapping("board/replyupdate.do")
+    public String replyUpdate(HttpServletRequest request,HttpServletResponse response)
+    {
+  	  try{
+            request.setCharacterEncoding("UTF-8");
+  	  }catch(Exception ex) {}
+  	  String bno=request.getParameter("bno");
+  	  String brno=request.getParameter("brno");
+  	  String content=request.getParameter("content");
+  	  //DAO연결
+  	  BoardDAO dao=new BoardDAO();
+  	  dao.replyUpdate(Integer.parseInt(brno), content);
+  	  return "redirect:detail.do?no="+bno;
+    }
+    @RequestMapping("board/replyReplyWrite.do")
+    public String reply_replyWrite(HttpServletRequest request,HttpServletResponse response)
+    {
+  	  try{
+            request.setCharacterEncoding("UTF-8");
+  	  }catch(Exception ex) {}
+  	  String bno=request.getParameter("bno");
+  	  String pno=request.getParameter("pno");
+  	  String content=request.getParameter("content");
 
-}
+  	  String mid=(String)request.getSession().getAttribute("mid");
+  	  String writer=(String)request.getSession().getAttribute("writer");
+
+  	  BoardReplyVO vo=new BoardReplyVO();
+  	  vo.setBno(Integer.parseInt(bno));
+  	  vo.setMid(mid);
+  	  vo.setWriter(writer);
+  	  vo.setContent(content);
+  	  System.out.println(content);
+  	  BoardDAO dao=new BoardDAO();
+  	  dao.replyReplyWrite(Integer.parseInt(pno), vo);
+  	  return "redirect:detail.do?no="+bno;
+    }
+    @RequestMapping("board/replyDelete.do")
+    public String replyDelete(HttpServletRequest request,HttpServletResponse response)
+    {
+  	  String brno=request.getParameter("brno");
+  	  String bno=request.getParameter("bno");
+  	  BoardDAO dao=new BoardDAO();
+  	  dao.replyDelete(Integer.parseInt(brno));
+  	  return "redirect:detail.do?no="+bno;
+    }
+  }

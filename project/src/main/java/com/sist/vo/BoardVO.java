@@ -22,4 +22,6 @@ public class BoardVO {
     private int hit;
 
     private String mid;
+    
+    private int num;
 }
