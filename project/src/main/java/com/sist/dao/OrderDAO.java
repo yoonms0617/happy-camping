@@ -32,7 +32,7 @@ public class OrderDAO {
 
     // 상품 주문 페이지
     public CartVO orderCheck(int cno) {
-        String itemFindSQL = "SELECT image, name, price, quantity, ino FROM HC_CART_2 cno = ?";
+        String itemFindSQL = "SELECT image, name, price, quantity, ino FROM HC_CART_2 WHERE cno = ?";
         CartVO vo = new CartVO();
         try {
             conn = dbConn.createConnection();
@@ -46,6 +46,7 @@ public class OrderDAO {
                 vo.setQuantity(rs.getInt(4));
                 vo.setIno(rs.getInt(5));
             }
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
