@@ -53,9 +53,12 @@
                         <fmt:formatNumber value="${vo.price * ((100 - vo.sale) * 0.01)}" pattern="#,###"/>원
                       </p>
                     </div> 
-                    <div class="pt-sm-1" style="display: inline" >
-	                   <a href="장바구니 경로 이동"><img src="/assets/images/main/search/shopping-cart.png"width=30"name="cart"></img></a>&nbsp;
-	                   <button type="button"style="height:50px ;width:52px "class="btn btn-xs btn-outline-secondary">찜하기</button>
+                    <div class="pt-sm-1"   style="    position: absolute;right: 0">
+	                   <button type="button" style="height:40px;width:50px;" class="btn btn-sm btn-outline-secondary">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                          </svg>
+                        </button>
 	                </div> 
                     </c:if>
                     <c:if test="${vo.sale==0 }">
@@ -64,8 +67,13 @@
                          <fmt:formatNumber value="${vo.price}" pattern="#,###"/>원 
                       </p>
                     </div>
-                    <div class="btn-group1 ml-sm-3 ps-5" style="display:inline">
-	                   <a href="장바구니 경로 이동"><img src="/assets/images/main/search/shopping-cart.png"width="30"name="cart"></img></a>&nbsp;
+                    <div class="btn-group1 ml-sm-3 ps-5" style="position: absoulte; left:60">
+                    <!-- 회원이 좋아요 했는지 안했는지 비교 조건문 -->
+	                    <button type="button" style="height:50px;width:60px;" class="btn btn-sm btn-outline-secondary" >
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+        </svg>
+</button>
 	                 <div style="height:5px"></div>
 	                </div>
 	                </c:if>
@@ -75,7 +83,7 @@
 	     </div>
       </c:forEach>
     </div>
-  
+  </c:if>
   </div>
 </div>
 
@@ -107,7 +115,6 @@
         </li>
 	</ul>
   </nav>
-  </c:if>
 </div>
 
 <div class="clear"></div>
