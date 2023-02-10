@@ -1,5 +1,10 @@
 package com.sist.model;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sist.controller.annotation.Controller;
@@ -7,15 +12,9 @@ import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.OrderDAO;
 import com.sist.util.Pagination;
 import com.sist.vo.CartVO;
-import com.sist.vo.ItemVO;
 import com.sist.vo.MemberVO;
 import com.sist.vo.OrderItemVO;
 import com.sist.vo.OrderVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
 
 @Controller
 public class OrderModel {

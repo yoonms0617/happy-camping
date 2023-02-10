@@ -1,10 +1,14 @@
 package com.sist.dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sist.util.DBConn;
-import com.sist.vo.*;
+import com.sist.vo.CartVO;
 
 public class CartDAO {
 
@@ -18,7 +22,7 @@ public class CartDAO {
 
     public List<CartVO> goodsCartListData(String mid) {
 
-        List<CartVO> list = new ArrayList<CartVO>();
+        List<CartVO> list = new ArrayList<>();
         try {
             conn = dbConn.createConnection();
             String sql = "SELECT cno,i.ino,mid,c.image,c.name,c.price,quantity,i.sale "

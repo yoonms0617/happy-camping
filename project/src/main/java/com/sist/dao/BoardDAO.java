@@ -193,7 +193,7 @@ public class BoardDAO {
   	  return list;
     }
 
-    public void replyUpdate(int brno,String msg) 
+    public void replyUpdate(int brno,String msg)
     {
   	  try
   	  {
@@ -331,7 +331,7 @@ public class BoardDAO {
     }
 
 
-	
+
 
   }
 

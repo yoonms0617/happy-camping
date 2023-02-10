@@ -38,10 +38,10 @@ public class MainModel {
         request.setAttribute("reItems", reItems);
         request.setAttribute("pickItems", pickItems);
         request.setAttribute("campItems", campItems);
-        
+
         // 쿠키 전송
 		Cookie[] cookies=request.getCookies();
-		List<ItemVO> iList =new ArrayList<ItemVO>();
+		List<ItemVO> iList =new ArrayList<>();
 		HttpSession session =request.getSession();
 		String mid=(String)session.getAttribute("mid");
 		ItemDAO dao=new ItemDAO();

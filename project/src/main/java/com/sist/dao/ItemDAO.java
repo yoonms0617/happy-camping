@@ -95,7 +95,7 @@ public class ItemDAO {
         }
         return newItems;
     }
-    
+
     public List<ItemVO> ReItemList() {
         String sql =
                 "SELECT ino, image, name, price " +
@@ -123,7 +123,7 @@ public class ItemDAO {
         }
         return reItems;
     }
-    
+
     public List<ItemVO> pickItemList() {
         String sql =
                 "SELECT ino, image, name, price " +
@@ -214,7 +214,7 @@ public class ItemDAO {
         List<ItemVO> list = new ArrayList<>();
         try {
             conn = dbConn.createConnection();
-            String sql = "select ino, image, name, price, num " 
+            String sql = "select ino, image, name, price, num "
                     + "from (select ino, image, name, price, rownum as num "
                     + "from (select ino, image, name, price "
                     + "from hc_item_2 where icno in(select icno from hc_item_category_2 where code="

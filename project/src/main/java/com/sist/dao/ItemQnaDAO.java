@@ -75,7 +75,6 @@ public class ItemQnaDAO {
          }
          return total;
       }
-
      // QnA 쓰기
      public void itemQnAInsert(ItemQAVO vo)
      {
@@ -86,7 +85,7 @@ public class ItemQnaDAO {
   		   		+ "values(hc_item_qa_seq.nextval, ?,?,?,?,?) ";
 
   		   ps=conn.prepareStatement(sql);
-
+  		   System.out.println("vo.getPassword():"+vo.getPassword());
   		   ps.setString(1, vo.getMid());
   		   ps.setString(2, vo.getTitle());
   		   ps.setString(3, vo.getContent());
@@ -113,7 +112,7 @@ public class ItemQnaDAO {
     		 ps.setInt(1, qano);
     		 ps.executeUpdate();
     		 ////////////////////////////조회수 증가
-    		 sql = "select qano, title, mid, content, regdate "
+    		 sql = "select qano, title, mid, content, regdate, ino "
     				 +"from hc_item_qa_2 where qano = ?";
     		 ps = conn.prepareStatement(sql);
     		 ps.setInt(1, qano);
@@ -124,6 +123,7 @@ public class ItemQnaDAO {
     		 vo.setMid(rs.getString(3));
     		 vo.setContent(rs.getString(4));
     		 vo.setRegdate(rs.getDate(5));
+    		 vo.setIno(rs.getInt(6));
     		 rs.close();
 
 		} catch (Exception e) {
@@ -135,18 +135,114 @@ public class ItemQnaDAO {
 
      }
 
-     // qna 삭제
-     public boolean itemQnaDelete(int qano, String pwd) {
+     // qna 수정
+     public ItemQAVO item_qna_updateData(int qano) {
+    	 ItemQAVO vo = new ItemQAVO();
+    	 try {
+			conn = dbConn.createConnection();
+			String sql = "select qano, title, mid, content "
+					+"from hc_item_qa_2 where qano = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, qano);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			 vo.setQano(rs.getInt(1));
+    		 vo.setTitle(rs.getString(2));
+    		 vo.setMid(rs.getString(3));
+    		 vo.setContent(rs.getString(4));
+    		 rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbConn.closeConnection(ps, conn);
+		}
+    	 return vo;
+     }
+
+     public boolean item_qna_update(ItemQAVO vo) {
     	 boolean bCheck = false;
     	 try {
-    		 conn = dbConn.createConnection();
-    	 } catch (Exception e) {
- 			e.printStackTrace();
- 		}finally {
- 			dbConn.closeConnection(ps, conn);
+    		conn = dbConn.createConnection();
+    		String sql = "select password from hc_item_qa_2 where qano=?";
+    		ps = conn.prepareStatement(sql);
+    		ps.setInt(1, vo.getQano());
+    		ResultSet rs = ps.executeQuery();
+    		rs.next();
+    		String password = rs.getString(1);
+    		rs.close();
+
+    		if(password.equals(vo.getPassword())) {
+    			bCheck = true;
+    			sql = "update hc_item_qa_2 set "
+    					+"title=?, mid=?, content=? "
+    					+"where qano = ?";
+    			ps = conn.prepareStatement(sql);
+    			ps.setString(1, vo.getTitle());
+    			System.out.println("title:"+vo.getTitle());
+    			ps.setString(2, vo.getMid());
+    			ps.setString(3, vo.getContent());
+    			System.out.println("content:"+vo.getContent());
+    			ps.setInt(4, vo.getQano());
+    			System.out.println("vo.getQano():"+vo.getQano());
+    			ps.executeUpdate();
+    		}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbConn.closeConnection(ps, conn);
+		}
     	 return bCheck;
      }
 
+     // qna 삭제
+//     public void item_Qna_Delete(int qano) {
+//    	ItemQAVO vo = new ItemQAVO();
+//    	 try {
+//    		 conn = dbConn.createConnection();
+//    		 String sql ="delete from hc_item_qa_2 where qano = ?";
+//    		 ps = conn.prepareStatement(sql);
+//    		 ps.setInt(1, qano);
+//    		 ps.executeUpdate();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}finally {
+//			dbConn.closeConnection(ps, conn);
+//		}
+//
+//     }
+//     qna 삭제
+    public boolean item_Qna_Delete(int qano, String pwd) {
+   	 boolean bCheck = false;
+   	 try {
+   		 conn = dbConn.createConnection();
+   		 String sql = "select password from hc_item_qa_2 where qano=?";
+   		 ps = conn.prepareStatement(sql);
+   		 ps.setInt(1, qano);
+   		 ResultSet rs = ps.executeQuery();
+   		 rs.next();
+   		 String password = rs.getString(1);
+   		 System.out.println("daopassword:"+password);
+   		 rs.close();
+   		 System.out.println("(DB)dao의 password값: "+password);
 
-}
+   		 if(password.equals(pwd)) {
+   			 bCheck = true;
+   			 sql = "delete from hc_item_qa_2 where qano = ?";
+   			 ps = conn.prepareStatement(sql);
+   			 ps.setInt(1, qano);
+   			 ps.executeUpdate();
+   		 }
+   		 System.out.println("dao의 pwd값: "+pwd);
+   	 } catch (Exception e) {
+   		 e.printStackTrace();
+   	 }finally {
+   		 dbConn.closeConnection(ps, conn);
+   	 }
+   	 System.out.println("dao의 bCheck"+bCheck);
+   	 return bCheck;
+
+
+    }
 }
