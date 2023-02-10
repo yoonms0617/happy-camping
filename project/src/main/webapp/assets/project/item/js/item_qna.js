@@ -1,17 +1,8 @@
-/**
- * 
- */
-/*
-$(function(){
-	qnaInsert()
-})
-*/
 
+	
 function qnaInsert(ino)
 {
-		alert(1)
 		
-	   alert("ino="+ino)
 	   $.ajax({
 		type: 'post',
 		url:'item_qna_insert.do',
@@ -23,7 +14,6 @@ function qnaInsert(ino)
 }
 function qnaInsertOk()
 {
-	alert(2);
 	let formData=$('#qnaFrm').serialize();
 	$.ajax({
 		type: 'post',
@@ -36,7 +26,6 @@ function qnaInsertOk()
 }
 function qnaList(ino)
 {
-	alert("취소");
 	$.ajax({
 		type: 'post',
 		url: "item_qna_list.do",
@@ -49,7 +38,6 @@ function qnaList(ino)
 }
 
 function qnaDetail(qano){
-	alert("디테일");
 	$.ajax({
 		type: 'post',
 		url: "item_qna_detail.do",
@@ -61,46 +49,60 @@ function qnaDetail(qano){
 	})
 }
 
-let i = 0;
-let u = 0;
 
-function qnaDel11(qano){
-		let pwd = $('#del_pwd').val();
-		if(pwd.trim()===""){
-			$('#del_pwd').focus()
-			return;
-		}
-		let no = $('#del').attr("data-no");
-		$.ajax({
-			type : 'post',
-			url : 'item_qna_delete.do',
-			data : {"no":no, "pwd":pwd},
-			success : function(result){
-				let res = result.trim();
-				if(res === 'yes'){
-					location.href="item_qna_list.do"
-				}else{
-					alert("비밀번호가 틀립니다.\n다시 입력해주세요")
-					$('#del_pwd').val("");
-					$('#del_pwd').focus();
-				}
-			}
-		})
+
+function qnaUpdate(qano){
+	$.ajax({
+	type: 'post',
+	url: "item_qna_update.do",
+	data:{'qano':qano},
+	success: function(response){
+		$('#print').html(response)
+	}		
+	})
+
 }
 
-function qnaDel()
+function qnaUpdateOk()
 {
-	alert(삭제);
-	let formData=$('#del_frm').serialize();
+
+	let formData=$('#qnaUpFrm').serialize();
 	$.ajax({
 		type: 'post',
-		url: "item_qna_delete.do",
+		url: "item_qna_update_ok.do",
 		data:formData,
-		success: function(response){
-			$('#print').html(response)
-		}
+		success : function(response){
+				let res = response.trim();
+				if(res === 'no'){ // 비밀번호가 틀려서 수정이 안되는 경우
+					alert("비밀번호를 다시 입력해 주세요.")
+					$('#password').val("");
+				  	$('#password').focus();
+				  	
+				}else{ // 비밀번호가 맞는 경우
+					alert("수정되었습니다.")
+				}
+				$('#print').html(response)
+			}
 	})	
 }
+
+function qnaReinsert(qano){
+	let formData=$('#qnaReins').serialize();
+	$.ajax({
+		type: 'post',
+		url: "item_qna_reply_insert.do",
+		data:formData,
+		success : function(response){
+				
+				$('#print').html(response)
+			}
+	})	
+}
+
+
+
+
+
 
 
 

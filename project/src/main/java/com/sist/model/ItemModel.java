@@ -1,6 +1,7 @@
 package com.sist.model;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,8 +17,10 @@ import com.sist.controller.annotation.Controller;
 import com.sist.controller.annotation.RequestMapping;
 import com.sist.dao.ItemDAO;
 import com.sist.dao.ItemQnaDAO;
+import com.sist.dao.ItemQnaReDAO;
 import com.sist.dao.ItemReviewDAO;
 import com.sist.util.Pagination;
+import com.sist.vo.ItemQAReplyVO;
 import com.sist.vo.ItemQAVO;
 import com.sist.vo.ItemVO;
 
@@ -75,7 +78,8 @@ public class ItemModel {
 
 		request.setAttribute("descript", descript);
 		request.setAttribute("vo", vo);
-		System.out.println("itemqna들어옴");
+										 
+
 
 		String page = request.getParameter("page");
 		if (page == null)
@@ -92,7 +96,7 @@ public class ItemModel {
 		if (endPage > totalpage)
 			endPage = totalpage;
 		
-		
+  
 		request.setAttribute("ino", ino);
 		request.setAttribute("qalist", qalist);
 		request.setAttribute("curpage", curpage);
@@ -137,7 +141,7 @@ public class ItemModel {
 		String content = request.getParameter("content");
 		int rno = Integer.parseInt(request.getParameter("rno"));
 		itemReviewDAO.updateItemReview(content, rno);
-		System.out.println("rno:"+ rno);
+								  
 	}
 
 	@RequestMapping("item/review/delete.do")
@@ -153,9 +157,9 @@ public class ItemModel {
 	// 아이템 qna //
 
 	@RequestMapping("item/item_qna_list.do")
-	//@RequestMapping("item/item_detail.do")
+
 	public String itme_qna_list(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("itemqna들어옴");
+
 		String page = request.getParameter("page");
 		if (page == null)
 			page = "1";
@@ -172,7 +176,7 @@ public class ItemModel {
 			endPage = totalpage;
 
 		int ino=Integer.parseInt(request.getParameter("ino"));
-		System.out.println("ino="+ino);
+								 
 		request.setAttribute("ino", ino);
 		request.setAttribute("qalist", qalist);
 		request.setAttribute("curpage", curpage);
@@ -186,22 +190,23 @@ public class ItemModel {
 	@RequestMapping("item/item_qna_insert.do")
 	public String item_qna_insert(HttpServletRequest request, HttpServletResponse response) {
         int ino=Integer.parseInt(request.getParameter("ino"));
-        System.out.println("insert-ino:"+ino);
+
         request.setAttribute("ino", ino);
 		return "/happy/item/item_qna_insert.jsp";
 	}
 
 	@RequestMapping("item/item_qna_insert_ok.do")
 	public String item_qna_insert_ok(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("인서트오케 잘나옴");
+
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (Exception ex) {
 		}
 		HttpSession session = request.getSession();
 		String mid = (String)session.getAttribute("mid");
+
 		int ino = Integer.parseInt(request.getParameter("ino"));
-		System.out.println("insertok:"+ino);
+									  
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String password = request.getParameter("password");
@@ -222,23 +227,121 @@ public class ItemModel {
 	@RequestMapping("item/item_qna_detail.do")
 	public String item_qna_detail(HttpServletRequest request, HttpServletResponse response) {
 		String qano = request.getParameter("qano");
-		System.out.println("vo.qano:"+qano);
+		String dbday = request.getParameter("dbday");
 		ItemQnaDAO dao = new ItemQnaDAO();
 		ItemQAVO vo = dao.itemQnADetail(Integer.parseInt(qano));
 		request.setAttribute("vo", vo);
 		request.setAttribute("qano", qano);
+
+
+
+		// 댓글 보내기
+			String qarno = request.getParameter("qano");
+			ItemQnaReDAO rdao = new ItemQnaReDAO();
+			List<ItemQAReplyVO> list = rdao.IqReplyList(Integer.parseInt(qarno));
+			request.setAttribute("list", list);
+			request.setAttribute("count", list.size());
+
+
 		return "/happy/item/item_qna_detail.jsp?qano="+qano;
 	}
 
+	@RequestMapping("item/item_qna_update.do")
+	public String item_qna_update(HttpServletRequest request, HttpServletResponse response) {
+		int qano = Integer.parseInt(request.getParameter("qano"));
+
+
+		ItemQnaDAO dao = new ItemQnaDAO();
+		ItemQAVO qvo = dao.item_qna_updateData(qano);
+		String mid = qvo.getMid();
+
+		request.setAttribute("qvo", qvo);
+		request.setAttribute("qano", qano);
+		return "/happy/item/item_qna_update.jsp";
+	}
+
+
+	@RequestMapping("item/item_qna_update_ok.do")
+	public String item_qna_update_ok(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {}
+		String qano = request.getParameter("qano");
+		String mid = request.getParameter("mid");
+		int ino = Integer.parseInt(request.getParameter("ino"));
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String password = request.getParameter("password");
+
+		ItemQAVO qvo = new ItemQAVO();
+		qvo.setQano(Integer.parseInt(qano));
+		qvo.setMid(mid);
+		qvo.setTitle(title);
+		qvo.setContent(content);
+		qvo.setPassword(password);
+		qvo.setIno(ino);
+
+		ItemQnaDAO dao = new ItemQnaDAO();
+		boolean bCheck = dao.item_qna_update(qvo);
+		if(bCheck) {
+			request.setAttribute("res", "yes");
+		}else {
+			request.setAttribute("res", "no");
+		}
+
+		return "redirect:item_qna_detail.do?qano="+qano;
+
+	}
+
+
+
+
 	@RequestMapping("item/item_qna_delete.do")
-	public String item_qna_delete(HttpServletRequest request, HttpServletResponse response) {
+	public void item_qna_delete(HttpServletRequest request, HttpServletResponse response) {
+
 		String ino = request.getParameter("ino");
-		String qano = request.getParameter("pano");
-		String password = request.getParameter("pwd");
+		String qano = request.getParameter("qano");
+		String pwd = request.getParameter("pwd");
+
 		ItemQnaDAO dao = new ItemQnaDAO();
 
-		return "redirect:item_qna_list.do?ino="+ino;
+
+		boolean bCheck = dao.item_Qna_Delete(Integer.parseInt(qano), pwd);
+		String s="";
+		if(bCheck) {
+			s="yes";
+		}else {
+			s="no";
+		}
+		try
+		{
+			PrintWriter out=response.getWriter();
+			out.println(s+","+ino);
+		}catch(Exception ex) {}
+		}
+
+	@RequestMapping("item/item_qna_reply_insert.do")
+	public String item_qna_reply_insert(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {}
+		String qano = request.getParameter("qano");
+		String ino = request.getParameter("ino");
+		String content = request.getParameter("content");
+		String mid = request.getParameter("mid");
+		String dbday = request.getParameter("dbday");
+		ItemQAReplyVO vo = new ItemQAReplyVO();
+		vo.setQano(Integer.parseInt(qano));
+		vo.setContent(content);
+		vo.setMid(mid);
+		vo.setDbday(dbday);
+
+		ItemQnaReDAO dao = new ItemQnaReDAO();
+		dao.IqReplyInsert(vo);
+
+		return "redirect:item_qna_detail.do?qano="+qano;
 	}
+
 
 
 	/////////////////////////////////////////////////////////////////////
@@ -292,7 +395,7 @@ public class ItemModel {
 	}
 	// 최근 본 상품 출력하는 부분 (메인페이지 퀵메뉴)
 	@RequestMapping("item/item_before_detail.do")
-	public String itemDetail(HttpServletRequest request, HttpServletResponse response) 
+	public String itemDetail(HttpServletRequest request, HttpServletResponse response)
 	{
 		HttpSession session=request.getSession();
 		String mid=(String)session.getAttribute("mid");
@@ -305,8 +408,8 @@ public class ItemModel {
 		    cookie.setMaxAge(60*60*24);
 		    response.addCookie(cookie);
 		}catch (Exception e) {}
-		
+  
 		return "redirect:../item/item_detail.do?ino="+Integer.parseInt(ino);
-	}	
+	}
 
 }

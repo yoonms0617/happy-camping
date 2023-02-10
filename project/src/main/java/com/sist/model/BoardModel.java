@@ -1,6 +1,6 @@
 package com.sist.model;
 
-import java.util.*;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,7 +89,7 @@ public class BoardModel {
   		  request.setCharacterEncoding("UTF-8");
   	  }catch(Exception ex) {}
   	  HttpSession session=request.getSession();
-  	  
+
   	  String bno=request.getParameter("bno");
   	  String writer=(String)session.getAttribute("name");
   	  System.out.println(writer);

@@ -13,13 +13,6 @@
 	<div style="height: 5px"></div>
 	<form id="qnaFrm">
 	<table class="table">
-<!-- 	  <tr>
-	    <th width=15% class="text-right">제목</th>
-	    <td width=80%>
-	    	<input type=text name=name size=20 class="input-sm">
-	    </td>
-	  </tr> -->
-	  
 	  
 	  <tr>
 	    <th width=15% class="text-right">제목</th>
@@ -39,7 +32,7 @@
 	   <tr>
 	    <th width=15% class="text-right">비밀번호</th>
 	    <td width=80%>
-	    	<input type=password name=pwd size=15 class="input-sm">
+	    	<input type=password name=password size=15 class="input-sm">
 	    </td>
 	  </tr>
 	  
