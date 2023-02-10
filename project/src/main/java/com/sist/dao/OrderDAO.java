@@ -32,7 +32,7 @@ public class OrderDAO {
 
     // 상품 주문 페이지
     public CartVO orderCheck(int cno) {
-        String itemFindSQL = "SELECT image, name, price, quantity, ino FROM HC_CART_2 cno = ?";
+        String itemFindSQL = "SELECT image, name, price, quantity, ino FROM HC_CART_2 WHERE cno = ?";
         CartVO vo = new CartVO();
         try {
             conn = dbConn.createConnection();
@@ -62,7 +62,7 @@ public class OrderDAO {
                 "INNER JOIN HC_ORDER_ITEM_2 hoi " +
                 "ON ho.ONO = hoi.ONO " +
                 "INNER JOIN HC_DELIVERY_2 hd " +
-                "ON ho.ONO = hd.DNO " +
+                "ON ho.ONO = hd.ONO " +
                 "WHERE ho.ONO = ?";
         OrderVO vo = new OrderVO();
         try {
@@ -99,12 +99,21 @@ public class OrderDAO {
     }
 
     // 상품 주문
-    public void orderItem(MemberVO member, OrderItemVO orderItem) {
+    public void orderItem(MemberVO member, OrderItemVO orderItem, int cno) {
         String orderSQL = "INSERT INTO HC_ORDER_2 (ONO, CODE, STATUS, PRICE, MID) VALUES (HC_ORDER_SEQ.NEXTVAL, ?, ?, ?, ?)";
         String orderItemSQL = "INSERT INTO HC_ORDER_ITEM_2 (OINO, IMAGE, NAME, PRICE, QUANTITY, INO, ONO) VALUES (HC_ORDER_ITEM_SEQ.NEXTVAL, ?, ?, ?, ?, ?, HC_ORDER_SEQ.CURRVAL)";
-        String orderDeliverySQL = "INSERT INTO HC_DELIVERY_2 (DNO, NAME, TEL, POSTCODE, HOME_ADDR, DETAIL_ADDR) VALUES (HC_ORDER_SEQ.CURRVAL, ?, ?, ?, ?, ?)";
+        String orderDeliverySQL = "INSERT INTO HC_DELIVERY_2 (DNO, NAME, TEL, POSTCODE, HOME_ADDR, DETAIL_ADDR, ONO) VALUES (hc_delivery_seq.NEXTVAL, ?, ?, ?, ?, ?, HC_ORDER_SEQ.CURRVAL)";
+        String cartItemDeleteSQL = "DELETE FROM HC_CART_2 WHERE cno = ?";
         try {
             conn = dbConn.createConnection();
+
+            ps = conn.prepareStatement(orderSQL);
+            ps.setString(1, createOrderCode(orderItem.getIno()));
+            ps.setString(2, "주문 완료");
+            ps.setInt(3, orderItem.getPrice() * orderItem.getQuantity());
+            ps.setString(4, member.getMid());
+            ps.executeUpdate();
+
             ps = conn.prepareStatement(orderItemSQL);
             ps.setString(1, orderItem.getImage());
             ps.setString(2, orderItem.getName());
@@ -112,18 +121,17 @@ public class OrderDAO {
             ps.setInt(4, orderItem.getQuantity());
             ps.setInt(5, orderItem.getIno());
             ps.executeUpdate();
-            ps = conn.prepareStatement(orderSQL);
-            ps.setString(1, createOrderCode(orderItem.getIno()));
-            ps.setString(2, "주문 완료");
-            ps.setInt(3, orderItem.getPrice() * orderItem.getQuantity());
-            ps.setString(4, member.getMid());
-            ps.executeUpdate();
+
             ps = conn.prepareStatement(orderDeliverySQL);
             ps.setString(1, member.getName());
             ps.setString(2, member.getTel());
             ps.setString(3, member.getPostcode());
             ps.setString(4, member.getHomeAddr());
             ps.setString(5, member.getDetailAddr());
+            ps.executeUpdate();
+
+            ps = conn.prepareStatement(cartItemDeleteSQL);
+            ps.setInt(1, cno);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -178,13 +186,12 @@ public class OrderDAO {
     }
 
     // 주문 내역 삭제
-    public void orderListDelete(String mid, int ono) {
-        String orderListDelteSQL = "DELETE FROM HC_ORDER_2 WHERE mid = ? AND ono = ?";
+    public void orderListDelete(int ono) {
+        String orderListDeleteSQL = "DELETE FROM HC_ORDER_2 WHERE ono = ?";
         try {
             conn = dbConn.createConnection();
-            ps = conn.prepareStatement(orderListDelteSQL);
-            ps.setString(1, mid);
-            ps.setInt(2, ono);
+            ps = conn.prepareStatement(orderListDeleteSQL);
+            ps.setInt(1, ono);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

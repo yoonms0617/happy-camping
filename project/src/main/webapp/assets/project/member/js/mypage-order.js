@@ -39,8 +39,8 @@ function drawOrderList(result) {
                 '<img src=' + items[index].orderItemVO.image + ' width="100px;"> ' +
                 '</div> ' +
                 '<div> ' +
-                '<a class="text-decoration-none text-dark" href=/item/item_detail.do?ino=' + items[index].orderItemVO.ino  + '> ' +
-                '<h4 class="m-0">' + items[index].orderItemVO.name + '</h4> ' +
+                '<a class="text-decoration-none text-dark" href=/item/item_detail.do?ino=' + items[index].orderItemVO.ino + '> ' +
+                '<h4 class="m-0 text-truncate" style="max-width: 650px;">' + items[index].orderItemVO.name + '</h4> ' +
                 '</a> ' +
                 '<div class="mt-1"> ' +
                 '<span class="text-muted">' + new Intl.NumberFormat().format(items[index].orderItemVO.price) + '원 • ' + items[index].orderItemVO.quantity + '</span> ' +
@@ -83,7 +83,7 @@ function drawOrderPageButton(result) {
 function orderItemListDelete(ono) {
     $.ajax({
         type: 'post',
-        url: '/order/list/delete.do' + ono,
+        url: '/order/list/delete.do?ono=' + ono,
         success: function () {
             showOrderList(1);
         }

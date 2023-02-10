@@ -37,6 +37,7 @@ public class OrderModel {
         String detailAddr = (String) request.getSession().getAttribute("detailAddr");
         String itemName = request.getParameter("name");
         String itemImage = request.getParameter("image");
+        int cno = Integer.parseInt(request.getParameter("cno"));
         int ino = Integer.parseInt(request.getParameter("ino"));
         int itemQuantity = Integer.parseInt(request.getParameter("quantity"));
         int itemPrice = Integer.parseInt(request.getParameter("price"));
@@ -53,7 +54,7 @@ public class OrderModel {
         memberVO.setPostcode(postCode);
         memberVO.setHomeAddr(homeAddr);
         memberVO.setDetailAddr(detailAddr);
-        orderDAO.orderItem(memberVO, orderItemVO);
+        orderDAO.orderItem(memberVO, orderItemVO, cno);
         return "redirect:main.do";
     }
 
@@ -72,6 +73,7 @@ public class OrderModel {
     public String orderDetailPage(HttpServletRequest request, HttpServletResponse response) {
         int ono = Integer.parseInt(request.getParameter("ono"));
         OrderVO orderVO = orderDAO.orderDetail(ono);
+        System.out.println("orderVO = " + orderVO);
         request.setAttribute("order", orderVO) ;
         return "/happy/cart/order_detail.jsp";
     }
@@ -95,6 +97,7 @@ public class OrderModel {
     @RequestMapping("order/list/delete.do")
     public void orderListDelete(HttpServletRequest request, HttpServletResponse response) {
         String ono = request.getParameter("ono");
+        orderDAO.orderListDelete(Integer.parseInt(ono));
     }
 
 }

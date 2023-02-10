@@ -114,7 +114,7 @@ public class MemberDAO {
     		}
     		else
     		{
-    			sql ="select mid, password, role,name from HC_MEMBER_2 where mid=?";
+    			sql ="select mid, password, role, name, tel, postcode, home_addr, detail_addr, email from HC_MEMBER_2 where mid=?";
     			ps=conn.prepareStatement(sql);
     			ps.setString(1, mid);
     			rs=ps.executeQuery();
@@ -123,8 +123,6 @@ public class MemberDAO {
     			String db_password=rs.getString(2);
     			String db_role=rs.getString(3);
     			String db_name=rs.getString(4);
-    			rs.close();
-
     		    if(db_password.equals(password))
     		    {
 
@@ -133,12 +131,18 @@ public class MemberDAO {
     		    	vo.setPassword(db_password);
     		    	vo.setRole(db_role);
     		    	vo.setName(db_name);
+                    vo.setTel(rs.getString(5));
+                    vo.setPostcode(rs.getString(6));
+                    vo.setHomeAddr(rs.getString(7));
+                    vo.setDetailAddr(rs.getString(8));
+                    vo.setEmail(rs.getString(9));
     		    }
     		    else
     		    {
     		    	vo.setMsg("NOPWD");
     		    }
     		}
+            rs.close();
     	}catch(Exception ex)
     	{
     		ex.printStackTrace();

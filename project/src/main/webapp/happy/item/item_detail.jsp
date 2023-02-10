@@ -97,7 +97,7 @@
                     </c:if>
                     <input type="hidden" id="sale" value="${vo.sale }">
                     <input type="hidden" id="none-sale-price" value="${vo.price}">
-                    <input type="hidden" id="sale-price" value="${vo.price * ((100 - vo.sale) * 0.01)}">
+                    <input type="hidden" id="sale-price" value="<fmt:formatNumber value="${vo.price * ((100 - vo.sale) * 0.01)}" pattern="####"/>">
                     <c:if test="${vo.sale==0 }">
                         <tr class="pt-sm-5 ">
                             <th>판매가&nbsp;:</th>
